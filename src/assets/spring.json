@@ -1,0 +1,49 @@
+[
+    {
+    "id": 1,
+    "question": "Beans can be created by which of the following properties?",
+    "a": "Scope",
+    "b": "Property",
+    "c": "Class",
+    "d": "It’s own constructor",
+    "answer": "d"
+},
+{
+    "id": 2,
+    "question": "Which attribute is used to specify class name of the bean?",
+    "a": "name",
+    "b": "id",
+    "c": "class",
+    "d": "constructor-args",
+    "answer": "c"
+},
+
+{
+    "id": 3,
+    "question": "Purpose of Static Factory Method?",
+    "a": " Static method to create an object",
+    "b": "Initialize bean",
+    "c": "All of the mentioned",
+    "d": "None of the mentioned",
+    "answer": "a"
+},
+{
+    "id": 4,
+    "question": "Which of the following method can be used to used to instantiate a method?",
+    "a": "static factory method",
+    "b": "default-init method",
+    "c": "destroy method",
+    "d": "lazy-init method",
+    "answer": "a"
+},
+{
+    "id": 5,
+    "question": "Which attribute is used to specify static factory-method?",
+    "a": "factory-method",
+    "b": "default-init method",
+    "c": "destroy method",
+    "d": " lazy-init method",
+    "answer": "a"
+}
+
+]

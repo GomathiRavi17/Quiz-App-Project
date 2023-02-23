@@ -1,0 +1,49 @@
+[
+    {
+    "id": 1,
+    "question": "Who invented Java language?",
+    "a": "Dennis Ritchie",
+    "b": "James Gosling",
+    "c": "Larry Page",
+    "d": "Serge Page",
+    "answer": "b"
+},
+{
+    "id": 2,
+    "question": "What is an Interpreter?",
+    "a": "An interpreter converts instructions line by line",
+    "b": "An Interpreter converts source code to low-level code",
+    "c": "Interpreters are slow to execute",
+    "d": "All the above",
+    "answer": "d"
+},
+
+{
+    "id": 3,
+    "question": "What is the file name extension of a Java source program?",
+    "a": ".j",
+    "b": ".ja",
+    "c": ".java",
+    "d": ".jax",
+    "answer": "c"
+},
+{
+    "id": 4,
+    "question": "Byte code is the result of?",
+    "a": "Compiling a Java file",
+    "b": "Compiling a Class file",
+    "c": "Interpreting a Java File",
+    "d": "Interpreting a Class file",
+    "answer": "a"
+},
+{
+    "id": 5,
+    "question": " What software compiles a Java Program?",
+    "a": "JRE (Java Runtime Environment)",
+    "b": "JDK (Java Developer Kit)",
+    "c": "JVM (Java Virtual Machine)",
+    "d": "Command Prompt",
+    "answer": "b"
+}
+
+]

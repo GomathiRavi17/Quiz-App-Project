@@ -1,0 +1,61 @@
+<body>
+    <br><br>
+    <div class="card mb-2 mx-auto" style="width:600px;">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-success alert-dismissible fade show text-center" role="alert"
+                        *ngIf="panelsts">
+                        Correct: {{rightAnswer}}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert"
+                        *ngIf="panelsts">
+                        Incorrect: {{wrongAnswer}}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+                        Answered: {{answered}}/{{allQuestions.length}}
+                    </div>
+                </div>
+            </div>
+           
+            <form #question = "ngForm" novalidate>
+            <p>{{id}}. {{currentQuestion}}</p>
+            <!-- <div *ngIf="isSubmitted && question.invalid">
+            <small class="text-danger" >Please select a answer</small>
+            </div> -->
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="option" [(ngModel)]="options[this.currentIndex]"
+                    value="a" required>
+                <label class="form-check-label">{{option1}}</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="option" [(ngModel)]="options[this.currentIndex]"
+                    value="b" required>
+                <label class="form-check-label">{{option2}}</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="option" [(ngModel)]="options[this.currentIndex]"
+                    value="c" required>
+                <label class="form-check-label">{{option3}}</label>
+            </div>
+            <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="option" [(ngModel)]="options[this.currentIndex]"
+                    value="d" required>
+                <label class="form-check-label">{{option4}}</label>
+            </div>
+            </form>
+            <div>
+                <button type="button" class="btn btn-secondary float-left" [disabled]="counter==0"
+                    (click)="prevQuestion()">Previous</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" [disabled]="counter==allQuestions.length-1"
+                    *ngIf="counter!=allQuestions.length-1" (click)="nextQuestion()">Next</button>
+                <button type="button" class="btn btn-primary float-right" *ngIf="counter==allQuestions.length-1"
+                    (click)="finish()">Finish</button>
+            </div>
+        </div>
+    </div>
+</body>

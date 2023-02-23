@@ -1,0 +1,49 @@
+[
+    {
+    "id": 1,
+    "question": "Which of the following language is MongoDB written in?",
+    "a": "Javascript",
+    "b": "C",
+    "c": " C++",
+    "d": "All of the mentioned",
+    "answer": "d"
+},
+{
+    "id": 2,
+    "question": "Which of the following format is supported by MongoDB?",
+    "a": "SQL",
+    "b": "XML",
+    "c": "BSON",
+    "d": "All the above",
+    "answer": "c"
+},
+
+{
+    "id": 3,
+    "question": "What is the file name extension of a Java source program?",
+    "a": ".j",
+    "b": ".ja",
+    "c": ".java",
+    "d": ".jax",
+    "answer": "c"
+},
+{
+    "id": 4,
+    "question": "MongoDB Queries can return specific fields of documents which also include user-defined __________ functions.",
+    "a": "Javascript",
+    "b": "C",
+    "c": "C++",
+    "d": "All of the mentioned",
+    "answer": "a"
+},
+{
+    "id": 5,
+    "question": " Initial release of MongoDB was in the year?",
+    "a": "2000",
+    "b": "2005",
+    "c": "2009",
+    "d": "2011",
+    "answer": "c"
+}
+
+]
