@@ -1,0 +1,40 @@
+<br><br>
+<div class="row d-flex justify-content-center align-items-center h-100">
+<div class="card mb-2 mx-auto" style="width:400px;">
+    <form [formGroup]="loginForm">
+      <h3 class="text-center m-2">Login</h3>
+      <h5 class="text-danger text-center"><b>{{errorMsg}}</b></h5>
+      <div class="form-group mb-2">
+      
+          <input formControlName="username" [class.is-invalid]="name!.invalid && (name!.errors && name!.touched)"
+            [class.is-valid]="name!.valid && (!name!.errors && name!.touched)" type="text" class="form-control" name="username"
+            placeholder="Username" required>
+        
+        <div *ngIf="name!.invalid && (name!.errors && name!.touched)">
+          <small class="text-danger" *ngIf="name!.invalid && name!.errors!['required']">Username is Required</small>
+          <small class="text-danger" *ngIf="name!.invalid && name!.errors['pattern']">Only
+            Alphabets are Allowed</small>
+            <small class="text-danger" *ngIf="name!.errors!['minlength']">Username must contain atleast 3 characters</small>
+        </div>
+      </div>
+      <div class="form-group mb-2">
+        
+          <input formControlName="password" type="password" class="form-control" name="password" placeholder="Password"
+            required [class.is-invalid]="password!.invalid && password!.touched"
+            [class.is-valid]="password!.valid && password!.touched">
+        
+        <div *ngIf="password!.invalid && password!.touched">
+          <small class="text-danger">Password is required</small>
+        </div>
+      </div>
+
+      <div class="d-grid gap-2 col-4 mx-auto">
+        <button type="submit" (click)="login()"  class="btn btn-primary m-2">Login</button>
+      </div>
+    </form>
+    
+  </div>
+  </div>
+  <div class="text-center m-2" style="color: black; font-size: 18px; font-weight: bold;">Don't have an account? <a
+    style="color: black;" routerLink='/signup'>Signup Here</a></div>
+  

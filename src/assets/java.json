@@ -44,6 +44,53 @@
     "c": "JVM (Java Virtual Machine)",
     "d": "Command Prompt",
     "answer": "b"
+},
+{
+    "id": 6,
+    "question": "In which of the following is toString() method defined?",
+    "a": "java.lang.Object",
+    "b": "java.lang.String",
+    "c": "java.lang.util",
+    "d": "None",
+    "answer": "a"
+},
+{
+    "id": 7,
+    "question": "When is the object created with new keyword?",
+    "a": "At Runtime",
+    "b": "At Compile time",
+    "c": "Depends on the Code",
+    "d": "None",
+    "answer": "a"
+},
+{
+    "id": 8,
+    "question": " What software compiles a Java Program?",
+    "a": "JRE (Java Runtime Environment)",
+    "b": "JDK (Java Developer Kit)",
+    "c": "JVM (Java Virtual Machine)",
+    "d": "Command Prompt",
+    "answer": "b"
 }
+,
+{
+    "id": 9,
+    "question": "Arrays in java are-",
+    "a": "Objects References",
+    "b": "Objects",
+    "c": "Primitive Data Type",
+    "d": "None",
+    "answer": "b"
+},
+{
+    "id": 10,
+    "question": "Number of primitive data types in Java are?",
+    "a": "6",
+    "b": "7",
+    "c": "8",
+    "d": "9",
+    "answer": "c"
+}
+
 
 ]

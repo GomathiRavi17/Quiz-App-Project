@@ -1,0 +1,18 @@
+<br><br>
+<div class="card mb-2 mx-auto" style="width:600px;">
+    <div class="card-body">
+        <div class="form-group">
+            <input type="file" class="form-control" accept=".xls,.xlsx" (change)="fileUpload($event)">
+        </div>
+    </div>
+</div>
+<div class="card mb-2 mx-auto" style="width:600px;">
+    <div class="card-body" *ngFor = "let question of questions">
+        <p>Question: {{question.qText}}</p>
+        <p>Option A: {{question.option1}}</p>
+        <p>Option B: {{question.option2}}</p>
+        <p>Option C: {{question.option3}}</p>
+        <p>Option D: {{question.option4}}</p>
+        <p>Correct Answer: {{question.correctAnswer}}</p>
+    </div>
+</div>

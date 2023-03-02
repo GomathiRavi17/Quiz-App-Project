@@ -1,10 +1,9 @@
-export class Result{
+export class Result {
 
-    constructor(public qId:number,public sOption:string,public cOption:boolean,public answer:string){
-        this.qId = qId;
-        this.answer=answer;
-        this.sOption=sOption;
-        this.cOption=cOption;
-    }
+    constructor(
+        public name: string, public email: string, public quizName: string, public date: string, public answered: number, public unanswered: number,
+        public correct: number, public incorrect: number, public startTime: string, public endTime: string, public attempt: number
+    ) { }
+
 
 }

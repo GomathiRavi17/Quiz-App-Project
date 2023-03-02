@@ -1,61 +1,85 @@
-<body>
+<html>
+<head>
+<script>
+    document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    if (evt.key == "Escape") {
+        alert('Esc key pressed.');
+    }
+};
+</script>
+</head>
+<body >
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand">Quiz App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" role="button" (click)="logout()">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <br><br>
     <div class="card mb-2 mx-auto" style="width:600px;">
         <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <div class="alert alert-success alert-dismissible fade show text-center" role="alert"
-                        *ngIf="panelsts">
-                        Correct: {{rightAnswer}}
-                    </div>
+                    {{formatted_min}}:{{formatted_sec}}
                 </div>
-                <div class="col">
+                <!-- <div class="col">
                     <div class="alert alert-danger alert-dismissible fade show text-center" role="alert"
                         *ngIf="panelsts">
                         Incorrect: {{wrongAnswer}}
                     </div>
-                </div>
+                </div> -->
                 <div class="col">
                     <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
-                        Answered: {{answered}}/{{allQuestions.length}}
+                        Answered: {{attended}}/{{displayQuestions.length}}
                     </div>
                 </div>
             </div>
-           
-            <form #question = "ngForm" novalidate>
-            <p>{{id}}. {{currentQuestion}}</p>
-            <!-- <div *ngIf="isSubmitted && question.invalid">
+
+            <form #question="ngForm" novalidate>
+                <p>{{id}}. {{currentQuestion}}</p>
+                <!-- <div *ngIf="isSubmitted && question.invalid">
             <small class="text-danger" >Please select a answer</small>
             </div> -->
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="option" [(ngModel)]="options[this.currentIndex]"
-                    value="a" required>
-                <label class="form-check-label">{{option1}}</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="option" [(ngModel)]="options[this.currentIndex]"
-                    value="b" required>
-                <label class="form-check-label">{{option2}}</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="option" [(ngModel)]="options[this.currentIndex]"
-                    value="c" required>
-                <label class="form-check-label">{{option3}}</label>
-            </div>
-            <div class="form-check mb-2">
-                <input class="form-check-input" type="radio" name="option" [(ngModel)]="options[this.currentIndex]"
-                    value="d" required>
-                <label class="form-check-label">{{option4}}</label>
-            </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="option" [(ngModel)]="options[this.currentIndex]"
+                        value="Option 1" required>
+                    <label class="form-check-label">{{option1}}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="option" [(ngModel)]="options[this.currentIndex]"
+                        value="Option 2" required>
+                    <label class="form-check-label">{{option2}}</label>
+                </div> 
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="option" [(ngModel)]="options[this.currentIndex]"
+                        value="Option 3" required>
+                    <label class="form-check-label">{{option3}}</label>
+                </div>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="option" [(ngModel)]="options[this.currentIndex]"
+                        value="Option 4" required>
+                    <label class="form-check-label">{{option4}}</label>
+                </div>
             </form>
             <div>
                 <button type="button" class="btn btn-secondary float-left" [disabled]="counter==0"
                     (click)="prevQuestion()">Previous</button>&nbsp;&nbsp;
-                <button type="button" class="btn btn-primary" [disabled]="counter==allQuestions.length-1"
-                    *ngIf="counter!=allQuestions.length-1" (click)="nextQuestion()">Next</button>
-                <button type="button" class="btn btn-primary float-right" *ngIf="counter==allQuestions.length-1"
+                <button type="button" class="btn btn-primary" [disabled]="counter==displayQuestions.length-1"
+                    *ngIf="counter!=displayQuestions.length-1" (click)="nextQuestion()">Next</button>
+                <button type="button" class="btn btn-primary float-right" *ngIf="counter==displayQuestions.length-1"
                     (click)="finish()">Finish</button>
             </div>
         </div>
     </div>
 </body>
+</html>

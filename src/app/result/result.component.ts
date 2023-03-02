@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { User } from '../authorization/signup/User';
 import { QuizService } from '../service/quiz.service';
 import { Result } from './result';
 
@@ -8,67 +9,34 @@ import { Result } from './result';
   templateUrl: './result.component.html',
   styleUrls: ['./result.component.css']
 })
-export class ResultComponent implements OnInit{
-  options: any[] = [];
-  rightAnswer:number=0;
-  wrongAnswer:number=0;
-  allQuestions: any[]=[];
-  resultArray :Result[] = [];
-  quizName: string = '';
-
-
-constructor(private route: ActivatedRoute, private quizService: QuizService){
-
-}
-
-ngOnInit(){
- this.route.paramMap.subscribe(
-  (param) => {
-    this.quizName = param.get('name')!;
+export class ResultComponent implements OnInit {
+  currentUser: User = {
+    userName: '',
+    email: '',
+    password: '',
+    active: false,
+    role: ''
   }
-);
 
-this.getAllQuestions();
-this.showResult();
-this.options = JSON.parse(localStorage.getItem('options')!);
-}
+  result: any = null;
 
-getAllQuestions(){
-  this.quizService.getAllQuestions(`assets/${this.quizName}.json`).subscribe(
-    (data) => {
-      this.allQuestions = data
-      this.showResult();
-    }
-  )
-}
+  constructor(private route: ActivatedRoute, private quizService: QuizService) {
 
-showResult(){
-  console.log(this.allQuestions);
-  for (let i = 0; i < this.allQuestions.length; i++) {
-    let result:any= null;
-    if (this.allQuestions[i].answer == this.options[i]) {
-      this.rightAnswer++;
-      result = new Result(this.allQuestions[i].id,
-        this.options[i],
-        true,
-        this.allQuestions[i].answer
-        );
-    this.resultArray.push(result);
-
-    }
-    else {
-      this.wrongAnswer++;
-      result = new Result(this.allQuestions[i].id,
-        this.options[i],
-        false,
-        this.allQuestions[i].answer
-        );
-    this.resultArray.push(result);
-
-    }
-    // this.resultArray.push(result);
   }
-  console.log(this.resultArray);
-  console.log(this.rightAnswer);
-}
+
+  ngOnInit() {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser')!);
+    this.showResult();
+  }
+
+ 
+
+  showResult() {
+   this.quizService.getResultByName(this.currentUser.userName).subscribe(
+    (result) => this.result = result
+   );
+     
+  }
+
+
 }

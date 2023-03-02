@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { ResultComponent } from './result/result.component';
@@ -7,20 +8,23 @@ import { ResultComponent } from './result/result.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
   {
-    path: 'home',
-    component: DashboardComponent
+    path: 'user-dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'quiz/:name',
-    component: QuizComponent
+    component: QuizComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'result/:name',
-    component: ResultComponent
+    component: ResultComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
