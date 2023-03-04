@@ -10,6 +10,8 @@ import { QuizComponent } from './quiz/quiz.component';
 import { ResultComponent } from './result/result.component';
 import { AuthorizationModule } from './authorization/authorization.module';
 import { AdminModule } from './admin/admin.module';
+import { Chart } from 'chart.js';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { AdminModule } from './admin/admin.module';
     FormsModule,
     HttpClientModule,
     AuthorizationModule,
-    AdminModule
+    AdminModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

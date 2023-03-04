@@ -20,8 +20,8 @@ export class QuizService {
     return this.httpClient.post<any>('http://localhost:8002/results/addResult',result)
   }
 
-  getResultByName(name:string):Observable<any>{
-    return this.httpClient.get<any>(`http://localhost:8002/results/getResult/${name}`);
+  getResultByNameAndqName(name:string, qName: string):Observable<any>{
+    return this.httpClient.get<any>(`http://localhost:8002/results/getResult/${name}/${qName}`);
   }
 
   addCategory(category:any):Observable<any>{

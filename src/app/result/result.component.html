@@ -1,24 +1,30 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
 <div class="container m-5 p-5">
-    <h3>Result</h3><br>
-    <!-- <h5 class="text-center text-success">Score:{{rightAnswer}}/{{allQuestions.length}}</h5><br> -->
-    <!-- <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Question No</th>
-                <th>Selected Option</th>
-                <th>Correct/Not</th>
-                <th>Correct Answer</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let result of resultArray">
-                <td>{{result.qId}}</td>
-                <td>{{result.sOption}}</td>
-                <td >{{result.cOption ? "Correct" : "Incorrect"}}</td>
-                <td>{{result.answer}}</td>
-            </tr>
-        </tbody>
+    <h3>{{quiz}}</h3>
+    <div class="card mb-2 mx-auto">
+     <div class="card-body">
+         <div class="row">
+            <div class="column">
+                {{(this.result.correct/questions)*100 | number: '2.1'}}
+            </div>
+            <div class="column">
 
-    </table> -->
-    {{result | json}}
+            </div>
+            <div class="column">
+
+            </div>
+         </div>
+     </div>
+    </div>
+    <h3>Performance Insights</h3><br>
+    <div class="card mx-auto p-2">
+        <canvas id="myChart" class="text-center">
+            {{chart}}
+        </canvas>
+      </div>
+    
 </div>
+</body>

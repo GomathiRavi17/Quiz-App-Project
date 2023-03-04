@@ -65,10 +65,14 @@ export class QuizComponent implements OnInit {
   iCount = 0;
   eCount = 0;
 
+  skills: any = [];
+  percent: any = [];
+  existingResult:any;
 
-  expertQ: any[] = [];
-  intermediareQ: any[] = [];
-  beginnerQ: any[] = [];
+  subSkillsQCount:Map<string, number> = new Map();
+  subSkillsACount:Map<string, number> = new Map();
+  subSkillsPercent:Map<string, number> = new Map();
+
 
   constructor(private quizService: QuizService,
     private router: Router,
@@ -106,14 +110,12 @@ export class QuizComponent implements OnInit {
           }
         );
 
-        console.log(this.totalQuestions)
-
         this.expert = Number(this.category[0].questionsToBeSelected);
-        console.log(this.expert);
+
         this.intermediate = Number(this.category[1].questionsToBeSelected);
-        console.log(this.intermediate)
+
         this.beginner = Number(this.category[2].questionsToBeSelected);
-        console.log(this.beginner)
+
       }
     );
 
@@ -124,8 +126,6 @@ export class QuizComponent implements OnInit {
     this.quizService.getAllQuestions().subscribe(
       (question) => {
         this.allQuestions = question
-        this.segregateQuestions();
-        console.log(this.beginnerQ)
         this.randomQuestions();
         this.assignQuestions();
 
@@ -151,7 +151,7 @@ export class QuizComponent implements OnInit {
       this.counter++;
     }
     this.currentIndex = this.counter;
-    this.currentQuestion = this.allQuestions[this.currentIndex].qText;
+    this.currentQuestion = this.displayQuestions[this.currentIndex].qText;
     this.option1 = this.displayQuestions[this.currentIndex].option1;
     this.option2 = this.displayQuestions[this.currentIndex].option2;
     this.option3 = this.displayQuestions[this.currentIndex].option3;
@@ -197,6 +197,7 @@ export class QuizComponent implements OnInit {
       if (this.options[i] != null) {
         if (this.displayQuestions[i].correctAnswer == this.options[i]) {
           this.rightAnswer++;
+          this.subSkillsACount.set(this.displayQuestions[i].subSkill,this.subSkillsACount.get(this.displayQuestions[i].subSkill)!+1)
         }
         else {
           this.wrongAnswer++;
@@ -204,6 +205,23 @@ export class QuizComponent implements OnInit {
       }
     }
 
+    console.log("subskills correct answer count")
+    this.subSkillsACount.forEach((k,v)=> console.log(k,v));
+
+    this.subSkillsPercent.forEach((v,k)=>
+    {
+      this.subSkillsPercent.set(k,(this.subSkillsACount.get(k)!/this.subSkillsQCount.get(k)!)*100)  
+    }
+    )
+
+    console.log("subskills percentage")
+    this.subSkillsPercent.forEach((v,k)=>
+    {
+       console.log(k,v)
+       this.skills.push(k);
+       this.percent.push(v);
+    });
+    
     console.log(this.options)
     this.options.forEach(
       (option: string) => {
@@ -216,22 +234,50 @@ export class QuizComponent implements OnInit {
       }
     );
 
-    this.result = new Result(
-      this.currentUser.userName,
-      this.currentUser.email,
-      this.quizName,
-      `${this.currentDate.toJSON().slice(0, 10)}`,
-      this.answered,
-      this.unanswered,
-      this.rightAnswer,
-      this.wrongAnswer,
-      `${this.startTime.toTimeString().slice(0, 8)}`,
-      `${end.toTimeString().slice(0, 8)}`,
-      1
-    );
+    
 
     console.log(this.result)
 
+    this.quizService.getResultByNameAndqName(this.currentUser.userName, this.quizName).subscribe(
+      (data) => {
+        this.existingResult = data;
+        if(this.existingResult==null){
+          this.result = new Result(
+            this.currentUser.userName,
+            this.currentUser.email,
+            this.quizName,
+            `${this.currentDate.toJSON().slice(0, 10)}`,
+            this.answered,
+            this.unanswered,
+            this.rightAnswer,
+            this.wrongAnswer,
+            this.skills,
+            this.percent,
+            `${this.startTime.toTimeString().slice(0, 8)}`,
+            `${end.toTimeString().slice(0, 8)}`,
+            1
+          );
+        }
+        else if(this.existingResult.attempt === 1){
+          this.result = new Result(
+            this.currentUser.userName,
+            this.currentUser.email,
+            this.quizName,
+            `${this.currentDate.toJSON().slice(0, 10)}`,
+            this.answered,
+            this.unanswered,
+            this.rightAnswer,
+            this.wrongAnswer,
+            this.skills,
+            this.percent,
+            `${this.startTime.toTimeString().slice(0, 8)}`,
+            `${end.toTimeString().slice(0, 8)}`,
+            2
+          );
+        }
+      }
+    )
+    
     this.quizService.addResult(this.result).subscribe(
       (data) => this.router.navigate(['result', this.quizName])
     );
@@ -242,70 +288,55 @@ export class QuizComponent implements OnInit {
     this.authService.loggedOut();
   }
 
-
-
   randomQuestions() {
 
     while (this.displayQuestions.length < this.totalQuestions) {
 
-        const randomIndex = Math.floor(Math.random() * this.allQuestions.length);
-        console.log(randomIndex);
+      const randomIndex = Math.floor(Math.random() * this.allQuestions.length);
+      console.log(randomIndex);
 
-        const item = this.allQuestions[randomIndex];
-
-        
-
-        if (this.displayQuestions.includes(item)) {
-          continue
-        }
+      const item = this.allQuestions[randomIndex];
 
 
-       
-        if( (item.level==='Beginner') && (this.bCount !== this.beginner)){
-          this.bCount++;
-          this.displayQuestions.push(item);
-        }
-        else if((item.level==='Intermediate') && (this.iCount !== this.intermediate))
-        {
-          this.iCount++;
-          this.displayQuestions.push(item);
-        }
-        else if((item.level==='Expert') && (this.eCount !== this.expert)){
-          this.eCount++;
-          this.displayQuestions.push(item);
-        }
-        else{
-          continue
-        }
-       
+
+      if (this.displayQuestions.includes(item)) {
+        continue
+      }
+
+
+
+      if ((item.level === 'Beginner') && (this.bCount !== this.beginner)) {
+        this.bCount++;
+        this.displayQuestions.push(item);
+      }
+      else if ((item.level === 'Intermediate') && (this.iCount !== this.intermediate)) {
+        this.iCount++;
+        this.displayQuestions.push(item);
+      }
+      else if ((item.level === 'Expert') && (this.eCount !== this.expert)) {
+        this.eCount++;
+        this.displayQuestions.push(item);
+      }
+      else {
+        continue
+      }
+
 
     }
+
+    this.displayQuestions.forEach(q => this.subSkillsQCount.set(q.subSkill, 0))
+    this.displayQuestions.forEach(q => this.subSkillsACount.set(q.subSkill, 0))
+    this.displayQuestions.forEach(q => this.subSkillsPercent.set(q.subSkill, 0))
+
     
-  }
-
-
-  segregateQuestions() {
-    this.allQuestions.forEach(
-      (q) => {
-        if (q.level == "Expert") {
-          this.expertQ.push(q)
-        }
-        else if (q.level == "Intermediate") {
-          this.intermediareQ.push(q)
-        }
-        else {
-          this.beginnerQ.push(q)
-        }
+      for(let i=0;i<this.displayQuestions.length;i++){
+        this.subSkillsQCount.set(this.displayQuestions[i].subSkill,this.subSkillsQCount.get(this.displayQuestions[i].subSkill)!+1)
       }
-    )
-
+      
+    console.log("subskills question count")
+    this.subSkillsQCount.forEach((k,v)=> console.log(k,v));
 
   }
-
- 
- 
-
-
 
 
 }
