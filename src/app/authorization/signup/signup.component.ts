@@ -86,14 +86,14 @@ export class SignupComponent {
     console.log(this.user);
     this.authService.register(this.user).subscribe(
       {
-        next: (data) =>{ 
+        next: (data) => console.log(data),
+        error: (data)=>{ 
           if(confirm("Registered Successfully!")){
             this.router.navigate(['/login']);
             console.log(data);
           }
          
         },
-        error: (data)=>console.log(data)
       }
     );
   }

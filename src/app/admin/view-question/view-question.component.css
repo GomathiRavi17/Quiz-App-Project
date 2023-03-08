@@ -1,0 +1,17 @@
+h3{
+    text-align: center;
+    margin-top: 40px;
+}
+table {
+  width: 100%;
+}
+  
+.mat-mdc-form-field {
+   font-size: 14px;
+   width: 100%;
+}
+
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+}

@@ -1,18 +1,74 @@
-<br><br>
-<div class="card mb-2 mx-auto" style="width:600px;">
-    <div class="card-body">
-        <div class="form-group">
-            <input type="file" class="form-control" accept=".xls,.xlsx" (change)="fileUpload($event)">
-        </div>
-    </div>
+<div>
+    <p>
+        <mat-toolbar color="primary">
+            <span>Quiz App</span>
+        </mat-toolbar>
+        <!-- <mat-toolbar color="primary">
+            <button mat-raised-button color="primary" routerLink="/profile">Profile</button>&nbsp;
+        </mat-toolbar> -->
+    </p>
 </div>
-<div class="card mb-2 mx-auto" style="width:600px;">
-    <div class="card-body" *ngFor = "let question of questions">
-        <p>Question: {{question.qText}}</p>
-        <p>Option A: {{question.option1}}</p>
-        <p>Option B: {{question.option2}}</p>
-        <p>Option C: {{question.option3}}</p>
-        <p>Option D: {{question.option4}}</p>
-        <p>Correct Answer: {{question.correctAnswer}}</p>
+
+<div class="container">
+    <div class="card m-5 p-3">
+        <div class="row">
+            <div class="col-6">
+                <div class="card m-5 p-5">
+                    <h4>Upload Excel File</h4>
+                    <label for="dropdown">Select language</label>
+                    <select id="dropdown" #teams (change)="onSelected(teams.value)">
+                        <option value=""></option>
+                        <option value="Java">Java</option>
+                        <option value="Mongodb">Mongodb</option>
+                        <option value="Html">Html</option>
+                        <option value="JavaBasic">JavaBasic</option>
+                        <option value="JavaIntermediate">JavaIntermediate</option>
+                        <option value="JavaAdvance">JavaAdvance</option>
+                    </select>
+                    <input type="file" (change)="fileUpload($event)" class="form-control" placeholder="Upload File"
+                        accept=".xls,.xlsx" name="fileName" />
+
+                    <div>
+                        <pre class="card p-3" *ngFor="let n of questionArray">
+                 {{n.qName}}
+                 {{n.level}}
+                 {{n.noOfQuestions}}
+                 {{n.questionsToBeSelected}}
+               </pre>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-6" id="second">
+                <div class="card p-4 m-5">
+                    <h4>Files</h4>
+                    <button mat-raised-button color="primary" (click)="getCollections()" *ngIf="!viewTable">
+                        Question Sets Available
+                    </button>
+                    <div class="search-field">
+                        <input type="text" placeholder="search" name="search" [(ngModel)]="searchKey" *ngIf="viewTable"
+                            (keyup)="search($event)" />
+                    </div>
+                    <table class="table table-success table-striped" *ngIf="viewTable">
+                        <thead>
+                            <tr>
+                                <th>List Of Files</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let n of collectionNames | filter : searchKey">
+                                <td>{{ n }}</td>
+                                <td>
+                                    <button mat-icon-button color="primary" (click)="viewQuestion(n)">
+                                        <mat-icon>visibility</mat-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

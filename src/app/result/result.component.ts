@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Chart } from 'chart.js';
+import { AuthService } from '../authorization/auth.service';
 import { User } from '../authorization/signup/User';
 import { QuizService } from '../service/quiz.service';
 
@@ -23,8 +24,15 @@ export class ResultComponent implements OnInit {
   chart: any;
   quiz: string ='';
   questions: any;
-  
-  constructor(private route: ActivatedRoute, private quizService: QuizService) {
+  correct: any;
+  incorrect: any;
+  percent: any;
+  answered: any;
+  date: any;
+  startTime: any;
+  currentDate: Date = new Date();
+
+  constructor(private route: ActivatedRoute, private quizService: QuizService,private authService: AuthService) {
 
   }
 
@@ -45,11 +53,17 @@ export class ResultComponent implements OnInit {
  
 
   showResult() {
-   this.quizService.getResultByNameAndqName(this.currentUser.userName, this.quiz).subscribe(
+   this.quizService.getResult(this.currentUser.userName, this.quiz, `${this.currentDate.toJSON().slice(0, 10)}`).subscribe(
     (result) =>
     {
          this.result = result
+         this.correct = result.correct
          this.questions = this.result.correct + this.result.incorrect;
+         this.percent = (this.correct/this.questions)*100;
+         this.answered = result.answered
+         this.incorrect = result.incorrect
+         this.date = result.date;
+         this.startTime = result.startTime
          this.createChart();
     }
    ); 
@@ -91,6 +105,10 @@ export class ResultComponent implements OnInit {
     });
     
   
+  }
+
+  logout(){
+    this.authService.loggedOut();
   }
 
 }

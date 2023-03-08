@@ -1,0 +1,35 @@
+.container{
+    width:auto ;
+}
+
+h4{
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    color: #6610f2;
+}
+select{
+    padding: 10px;
+    margin: 10px;
+}
+
+input{
+    margin: 4px;
+}
+
+button{
+    margin: 6px;
+}
+label{
+    margin: 10px;
+}
+
+#second{
+    margin-top: 0px;
+}
+
+.search-field input{
+   padding: 6px;
+   width: 100%;
+   margin-right: 30px;
+   margin-bottom: 4px;
+}

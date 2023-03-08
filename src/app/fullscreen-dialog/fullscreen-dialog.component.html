@@ -1,0 +1,99 @@
+<div class="container">
+    <h4>Update Question</h4>
+          <form>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Id</mat-label>
+              <input matInput placeholder="id"  [(ngModel)]="editData.id" name="id" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Question</mat-label>
+              <input matInput placeholder="qtext"  [(ngModel)]="editData.qtext" name="qtext" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Option1</mat-label>
+              <input matInput placeholder="option1"  [(ngModel)]="editData.option1" name="option1" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Option2</mat-label>
+              <input matInput placeholder="option2"  [(ngModel)]="editData.option2" name="option2" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Option3</mat-label>
+              <input matInput placeholder="option3"  [(ngModel)]="editData.option3" name="option3" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Option4</mat-label>
+              <input matInput placeholder="option4"  [(ngModel)]="editData.option4" name="option4" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Answer</mat-label>
+              <input matInput placeholder="correctAnswer"  [(ngModel)]="editData.correctAnswer" name="correctAnswer" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>QuestionType</mat-label>
+              <input matInput placeholder="qtype"  [(ngModel)]="editData.qtype" name="qtype" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Level</mat-label>
+              <input matInput placeholder="level"  [(ngModel)]="editData.level" name="level" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Category</mat-label>
+              <input matInput placeholder="category"  [(ngModel)]="editData.category" name="category" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Skill</mat-label>
+              <input matInput placeholder="skill"  [(ngModel)]="editData.skill" name="skill" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Subskill</mat-label>
+              <input matInput placeholder="subskill"  [(ngModel)]="editData.subskill" name="subskill" />
+            </mat-form-field>
+          </p>
+            <button mat-flat-button color="primary" class="w-20" style="margin-right: 5px;" (click)="updateJavaQuestion()">Save</button>
+    </form>
+    </div>
+
+<!-- <button mat-raised-button color="primary" (click)="openFullScreen()" (click)="closeDialog()">Enable FullScreen</button> &nbsp;
+<button (click)="closeDialog()">close</button> -->
+
+<!-- <form action="">
+    <label for="id">Id</label>
+    <input type="text" name="id" id="id" [(ngModel)]="editData.id"><br>
+    <label for="question">Question</label>
+    <input type="text" name="question" id="question" [(ngModel)]="editData.question"><br>
+    <label for="a">A</label>
+    <input type="text" name="a" id="a" [(ngModel)]="editData.a"><br>
+    <label for="b">B</label>
+    <input type="text" name="b" id="b" [(ngModel)]="editData.b"><br>
+    <label for="c">C</label>
+    <input type="text" name="c" id="c" [(ngModel)]="editData.c"><br>
+    <label for="d">D</label>
+    <input type="text" name="d" id="d" [(ngModel)]="editData.d"><br>
+    <label for="answer">Answer</label>
+    <input type="text" name="answer" id="answer" [(ngModel)]="editData.answer"><br>
+    <button type="submit" (click)="updateJavaQuestion()">save</button>
+</form> -->

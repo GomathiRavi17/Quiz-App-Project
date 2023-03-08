@@ -8,20 +8,24 @@ import { Observable } from 'rxjs';
 export class QuizService {
   constructor(private httpClient: HttpClient) { }
 
-  getAllQuestions(): Observable<any>{
-    return this.httpClient.get<any>("http://localhost:8001/questions/");
+  getAllJavaQuestions(): Observable<any>{
+    return this.httpClient.get<any>("http://localhost:8001/question/allJava");
   }
 
   addQuestion(questions:any):Observable<any[]>{
-    return this.httpClient.post<any[]>("http://localhost:8001/questions/addQuestion", questions);
+    return this.httpClient.post<any[]>("http://localhost:8001/question/addQuestion", questions);
   }
 
   addResult(result: any):Observable<any>{
     return this.httpClient.post<any>('http://localhost:8002/results/addResult',result)
   }
 
-  getResultByNameAndqName(name:string, qName: string):Observable<any>{
-    return this.httpClient.get<any>(`http://localhost:8002/results/getResult/${name}/${qName}`);
+  getResult(name:string, qName: string, date: string):Observable<any>{
+    return this.httpClient.get<any>(`http://localhost:8002/results/getResult/${name}/${qName}/${date}`);
+  }
+
+  getResultByName(name: string, quiz: string): Observable<any>{
+    return this.httpClient.get<any>(`http://localhost:8002/results/getResult/${name}/${quiz}`);
   }
 
   addCategory(category:any):Observable<any>{
