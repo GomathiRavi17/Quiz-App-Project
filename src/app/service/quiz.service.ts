@@ -12,6 +12,26 @@ export class QuizService {
     return this.httpClient.get<any>("http://localhost:8001/question/allJava");
   }
 
+  getAllMongoQuestions(): Observable<any>{
+    return this.httpClient.get<any>("http://localhost:8001/question/allMongo");
+  }
+
+  getAllHtmlQuestions(): Observable<any>{
+    return this.httpClient.get<any>("http://localhost:8001/question/allHtml");
+  }
+
+  getAllJavaBasicQuestions(): Observable<any>{
+    return this.httpClient.get<any>("http://localhost:8001/question/allJavaBasic");
+  }
+
+  getAllJavaInterQuestions(): Observable<any>{
+    return this.httpClient.get<any>("http://localhost:8001/question/allJavaIntermediate");
+  }
+
+  getAllJavaAdvanceQuestions(): Observable<any>{
+    return this.httpClient.get<any>("http://localhost:8001/question/allJavaAdvance");
+  }
+
   addQuestion(questions:any):Observable<any[]>{
     return this.httpClient.post<any[]>("http://localhost:8001/question/addQuestion", questions);
   }

@@ -13,11 +13,13 @@ const routes: Routes = [
    },
    {
     path: 'addquestion',
-    component: AddquestionComponent
+    component: AddquestionComponent,
+    canActivate: [AuthGuard]
    },
    {
     path:'view-question/:selectedTeam',
-    component:ViewQuestionComponent
+    component:ViewQuestionComponent,
+    canActivate: [AuthGuard]
   },
 ];
 

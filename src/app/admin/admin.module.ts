@@ -9,16 +9,19 @@ import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSortModule} from '@angular/material/sort';
-
+import { RouterModule } from '@angular/router';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AddquestionComponent } from './addquestion/addquestion.component';
 import { FormsModule } from '@angular/forms';
 import { ViewQuestionComponent } from './view-question/view-question.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+
 
 
 @NgModule({
   declarations: [
+    AdminDashboardComponent,
     AddquestionComponent,
     FilterPipe,
     ViewQuestionComponent
@@ -34,7 +37,8 @@ import { ViewQuestionComponent } from './view-question/view-question.component';
     MatInputModule,
     MatTableModule,
     MatButtonModule,
-    MatSortModule
+    MatSortModule,
+    RouterModule
   ]
 })
 export class AdminModule { }

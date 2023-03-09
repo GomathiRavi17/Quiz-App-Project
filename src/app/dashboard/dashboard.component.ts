@@ -58,27 +58,32 @@ export class DashboardComponent implements OnInit{
     }
   }
 
-  checkQuizAlreadyTaken(){
-    this.quizService.getResultByName(this.currentUser.userName, "Java").subscribe(
+  checkQuizAlreadyTaken(quizName: string){
+    this.quizService.getResultByName(this.currentUser.userName, quizName).subscribe(
       (result) => {
-        this.result = result;
+         next: {
+          this.result = result;
        
         console.log(this.result)
         if(this.result==null){
           // this.openFullscreen()
-          this.router.navigate(['quiz', "Java"])
+          this.router.navigate(['quiz', quizName])
           this.startTime();
         }
-        else if(this.result[0].attempt===1 && this.result.length === 1){
+        else if(this.result[0].quizName === quizName && this.result[0].attempt===1 && this.result.length === 1 ){
+          console.log(quizName)
+          console.log(this.result[0].quizName)
           alert("You are only left with one attempt!");
           // this.openFullscreen()
-          this.router.navigate(['quiz', "Java"])
+          
+          this.router.navigate(['quiz', quizName])
           this.startTime();
         }
-        else{
+        else if(this.result[1].quizName === quizName && this.result[1].attempt===2 && this.result.length === 1 ){
+          //  this.openFullscreen()
           alert("You are already taken the test twice. No more attempt left to take!")
         }
-        
+      }
       }
     );
 

@@ -19,7 +19,7 @@
             <div class="card mx-auto" style="width: 250px;">
                 <div class="card-body text-center">
                    <p>Java Quiz</p> 
-                <a class="btn btn-primary" (click)="checkQuizAlreadyTaken()">Start the quiz!</a>
+                <a class="btn btn-primary" (click)="checkQuizAlreadyTaken('Java')">Start the quiz!</a>
                 </div>
             </div>
         </div>
@@ -27,15 +27,15 @@
             <div class="card mx-auto" style="width: 250px;">
                 <div class="card-body text-center">
                    <p>Mongodb Quiz</p> 
-                <a class="btn btn-primary" routerLink="/quiz/mongodb" (click)="startTime()">Start the quiz!</a>
+                <a class="btn btn-primary" (click)="checkQuizAlreadyTaken('Mongodb')">Start the quiz!</a>
                 </div>
             </div>
         </div>
         <div class="col">
             <div class="card mx-auto" style="width: 250px;">
                 <div class="card-body text-center">
-                   <p>Spring Quiz</p> 
-                <a class="btn btn-primary" routerLink="/quiz/spring" (click)="startTime()">Start the quiz!</a>
+                   <p>Html Quiz</p> 
+                <a class="btn btn-primary" (click)="checkQuizAlreadyTaken('Html')">Start the quiz!</a>
                 </div>
             </div>
         </div>

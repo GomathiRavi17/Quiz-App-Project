@@ -91,7 +91,7 @@ export class QuizComponent implements OnInit {
 
   ngOnInit(): void {
     this.elem = this.document.documentElement;
-    this.openFullscreen()
+    // this.openFullscreen()
     this.timer();
     this.route.paramMap.subscribe(
       (param) => {
@@ -117,11 +117,11 @@ export class QuizComponent implements OnInit {
           }
         );
 
-        this.expert = Number(this.category[0].questionsToBeSelected);
+        this.beginner = Number(this.category[0].questionsToBeSelected);
 
         this.intermediate = Number(this.category[1].questionsToBeSelected);
 
-        this.beginner = Number(this.category[2].questionsToBeSelected);
+        this.expert = Number(this.category[2].questionsToBeSelected);
 
       }
     );
@@ -180,6 +180,7 @@ export class QuizComponent implements OnInit {
 
   getAllQuestions() {
     this.getCategory(this.quizName);
+    if(this.quizName==='Java') {
     this.quizService.getAllJavaQuestions().subscribe(
       (question) => {
         this.allQuestions = question
@@ -189,6 +190,29 @@ export class QuizComponent implements OnInit {
         console.log(this.displayQuestions)
       }
     );
+    }
+    else if(this.quizName==='Mongodb'){
+      this.quizService.getAllMongoQuestions().subscribe(
+        (question) => {
+          this.allQuestions = question
+          this.randomQuestions();
+          this.assignQuestions();
+  
+          console.log(this.displayQuestions)
+        }
+      );
+    }
+    else if(this.quizName==='Html'){
+      this.quizService.getAllHtmlQuestions().subscribe(
+        (question) => {
+          this.allQuestions = question
+          this.randomQuestions();
+          this.assignQuestions();
+  
+          console.log(this.displayQuestions)
+        }
+      );
+    }
   }
 
   assignQuestions() {
