@@ -1,13 +1,44 @@
 <div>
-  <p>
+  
       <mat-toolbar color="primary" style="font-size: 10;">
           <span>Quiz App</span>
-          <span class="filler"></span>
-          <span><a routerLink="/admin-dashboard" style="text-decoration:none; color:white;" >Add Questions</a></span>
-          <span><a  style="text-decoration:none; color:white;" >View Results</a></span>
+          <span class="filler" style="flex: 1 1 auto"></span>
+          <span><a routerLink="/addquestion" style="text-decoration:none; color:white;" >Add Questions</a></span>
+          &nbsp;&nbsp;<span><a  routerLink="/viewresults"  style="text-decoration:none; color:white;" >View Results</a></span>
+          &nbsp;&nbsp;<span><a  role="button" (click)="logout()" style="text-decoration:none; color:white;" >Logout</a></span>
       </mat-toolbar>
-  </p>
+  
 </div>
 
 <br>
+<div class="container">
+<div class="card p-4 m-4 mx auto">
+    <h3 class="text-center">Question Sets</h3>
+
+    <div class="text-center mb-2" *ngIf="!viewCard">
+    <button mat-raised-button color="primary" (click)="getCollections()">View Question Sets</button>
+    </div>
+     
+    <div class="search-field mb-2" *ngIf="viewCard">
+        <mat-form-field>
+            <mat-label>Search</mat-label>
+            <input type="text" matInput name="search" [(ngModel)]="searchKey" 
+            (keyup)="search($event)"  placeholder="Ex. Java"/>
+        </mat-form-field>
+        
+    </div>
+    <div class="row" >
+    <div class="col m-2 p-2" align="center" *ngFor="let collection of collections | filter:searchKey">
+    <div class="card"  style="width:300px;"  >
+        <div class="card-body text-center"> 
+        <h4>{{collection}}</h4>
+        <button mat-raised-button color="primary" (click)="viewQuestion(collection)">
+            View
+        </button>
+        </div>
+    </div>
+    </div>
+    </div>
+</div>
+</div>
 <router-outlet></router-outlet>

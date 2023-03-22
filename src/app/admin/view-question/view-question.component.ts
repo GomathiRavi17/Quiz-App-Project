@@ -6,6 +6,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import { QuestionService } from 'src/app/service/question.service';
 import { FullscreenDialogComponent } from 'src/app/fullscreen-dialog/fullscreen-dialog.component';
+import { AuthService } from 'src/app/authorization/auth.service';
 
 @Component({
   selector: 'app-view-question',
@@ -17,7 +18,7 @@ export class ViewQuestionComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private route:ActivatedRoute , private questionService : QuestionService,public dialog: MatDialog){
+  constructor(private route:ActivatedRoute , private questionService : QuestionService,public dialog: MatDialog, private authService: AuthService){
 
   }
   selectedTeam:any;
@@ -160,10 +161,8 @@ export class ViewQuestionComponent implements OnInit{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  // deleteJavaQuestion(){
-  //   this.questionService.deleteJava().subscribe(data=>{
-  //     console.log(data);
-  //   })
-  // }
+  logout(){
+    this.authService.loggedOut();
+  }
 
 }

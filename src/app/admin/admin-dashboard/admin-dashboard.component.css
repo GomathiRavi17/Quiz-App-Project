@@ -1,0 +1,16 @@
+mat-toolbar{
+    font-size:17px;
+}
+
+.search-field input{
+    padding: 6px;
+    width: 100%;
+    margin-right: 30px;
+    margin-bottom: 4px;
+ }
+ 
+ 
+ .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+ }

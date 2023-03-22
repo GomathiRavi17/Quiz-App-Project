@@ -1,0 +1,72 @@
+<div class="container">
+    <h4>Update Result</h4>
+          <form>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Id</mat-label>
+              <input matInput placeholder="id"  [(ngModel)]="editData.id" name="id" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Name</mat-label>
+              <input matInput placeholder="Name"  [(ngModel)]="editData.name" name="name" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Email"  [(ngModel)]="editData.email" name="email" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Quiz Name</mat-label>
+              <input matInput placeholder="Quiz Name"  [(ngModel)]="editData.quizName" name="quizName" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Date</mat-label>
+              <input matInput placeholder="Date"  [(ngModel)]="editData.date" name="date" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Answered</mat-label>
+              <input matInput placeholder="Answered"  [(ngModel)]="editData.answered" name="answered" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Unanswered</mat-label>
+              <input matInput placeholder="Unanswered"  [(ngModel)]="editData.unanswered" name="unanswered" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Correct</mat-label>
+              <input matInput placeholder="Correct"  [(ngModel)]="editData.correct" name="correct" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Incorrect</mat-label>
+              <input matInput placeholder="Incorrect"  [(ngModel)]="editData.incorrect" name="incorrect" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Attempt</mat-label>
+              <input matInput placeholder="Attempt"  [(ngModel)]="editData.attempt" name="category" />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Total Attempt</mat-label>
+              <input matInput placeholder="Total Attempt"  [(ngModel)]="editData.totalAttempt" name="totalAttempt" />
+            </mat-form-field>
+          </p>
+            <button mat-flat-button color="primary" class="w-20" style="margin-right: 5px;" (click)="updateResult()">Save</button>
+    </form>
+    </div>

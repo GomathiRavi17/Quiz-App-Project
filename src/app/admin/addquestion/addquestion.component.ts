@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/authorization/auth.service';
 import { QuestionService } from 'src/app/service/question.service';
 import { QuizService } from 'src/app/service/quiz.service';
 import * as XLSX from 'xlsx';
@@ -21,6 +22,7 @@ export class AddquestionComponent implements OnInit{
   question: string = '';
   collectionNames: any = [];
   searchKey: string = '';
+  quizInfo: any[] = [];
 
 
 
@@ -28,7 +30,8 @@ export class AddquestionComponent implements OnInit{
     private quizService: QuizService, 
     private router: Router, 
     private questionService: QuestionService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private authService: AuthService
     ){
 
   }
@@ -60,10 +63,15 @@ export class AddquestionComponent implements OnInit{
           const questions = XLSX.utils.sheet_to_json(workbook.Sheets[sheets[0]]);
           this.questions = questions;
           console.log(this.questions)
+          
 
           const category = XLSX.utils.sheet_to_json(workbook.Sheets[sheets[1]]);
           this.category = category;
           console.log(this.category);
+
+          const quizInfo = XLSX.utils.sheet_to_json(workbook.Sheets[sheets[2]]);
+          this.quizInfo = quizInfo;
+          console.log(this.quizInfo);
 
           if (this.selectedTeam == 'Java') {
             let upload = this.httpClient.post(
@@ -129,6 +137,10 @@ export class AddquestionComponent implements OnInit{
           this.quizService.addCategory(this.category).subscribe(
             (category) => console.log(category)
           );
+
+          this.quizService.addQuizInfo(this.quizInfo[0]).subscribe(
+            (quizInfo) => console.log(quizInfo)
+          );
      
       console.log(workbook);
      
@@ -153,5 +165,9 @@ export class AddquestionComponent implements OnInit{
 
   search(event: any) {
     this.searchKey = (event.target as HTMLInputElement).value;
+  }
+
+  logout(){
+    this.authService.loggedOut();
   }
 }

@@ -1,4 +1,16 @@
+<div>
 
+  <mat-toolbar color="primary" style="font-size: 10;">
+      <span>Quiz App</span>
+      <span class="filler" style="flex: 1 1 auto"></span>
+      <span><a routerLink="/admin-dashboard" style="text-decoration:none; color:white;">Dashboard</a></span>
+      &nbsp;&nbsp;<span><a routerLink="/viewresults" style="text-decoration:none; color:white;">View
+              Results</a></span>
+      &nbsp;&nbsp;<span><a role="button" (click)="logout()"
+              style="text-decoration:none; color:white;">Logout</a></span>
+  </mat-toolbar>
+
+</div>
 <div class="container">
 <h3>{{ selectedTeam }} Questions</h3>
 <mat-form-field>
@@ -10,6 +22,7 @@
     #input
   />
 </mat-form-field>
+
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="id">

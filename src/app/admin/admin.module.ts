@@ -10,12 +10,15 @@ import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSortModule} from '@angular/material/sort';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AddquestionComponent } from './addquestion/addquestion.component';
 import { FormsModule } from '@angular/forms';
 import { ViewQuestionComponent } from './view-question/view-question.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { ViewResultComponent } from './view-result/view-result.component';
+import { EditResultComponent } from './edit-result/edit-result.component';
 
 
 
@@ -24,9 +27,12 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
     AdminDashboardComponent,
     AddquestionComponent,
     FilterPipe,
-    ViewQuestionComponent
+    ViewQuestionComponent,
+    ViewResultComponent,
+    EditResultComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     CommonModule,
     AdminRoutingModule,
     FormsModule,

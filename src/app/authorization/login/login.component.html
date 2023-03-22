@@ -1,14 +1,14 @@
 <br><br>
-<div class="row d-flex justify-content-center align-items-center h-100">
+<div class="row d-flex justify-content-center align-items-center">
 <div class="card mb-2 mx-auto" style="width:400px;">
     <form [formGroup]="loginForm">
-      <h3 class="text-center m-2">Login</h3>
+      <h2 class="text-center m-2 ">Login</h2>
       <h5 class="text-danger text-center"><b>{{errorMsg}}</b></h5>
       <div class="form-group mb-2">
       
           <input formControlName="username" [class.is-invalid]="name!.invalid && (name!.errors && name!.touched)"
             [class.is-valid]="name!.valid && (!name!.errors && name!.touched)" type="text" class="form-control" name="username"
-            placeholder="Username" required>
+            placeholder="Email Address" required>
         
         <div *ngIf="name!.invalid && (name!.errors && name!.touched)">
           <small class="text-danger" *ngIf="name!.invalid && name!.errors!['required']">Username is Required</small>

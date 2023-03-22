@@ -1,0 +1,12 @@
+/* th,td{
+    text-align: center;
+} */
+
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+ }
+
+ mat-toolbar{
+    font-size:17px;
+}

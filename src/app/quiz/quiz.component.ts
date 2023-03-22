@@ -1,14 +1,15 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { Anchor } from 'chartjs-plugin-datalabels/types/options';
-import { empty } from 'rxjs';
+import { DOCUMENT, NgFor } from '@angular/common';
+import { Component, HostListener, Inject, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../authorization/auth.service';
 import { User } from '../authorization/signup/User';
+import { ModalComponent } from '../modal/modal.component';
 import { Result } from '../result/result';
 import { QuizService } from '../service/quiz.service';
-
+import { fromEvent, Subscription } from 'rxjs';
+import { filter, distinctUntilChanged } from 'rxjs/operators';
+import { EnablefsComponent } from '../enablefs/enablefs.component';
 
 @Component({
   selector: 'app-quiz',
@@ -33,13 +34,15 @@ export class QuizComponent implements OnInit {
   attended: number = 1;
   elem: any;
   stopTimer: any;
-  time = 0;
-  dt = new Date(new Date().setTime(0));
-  ctime = this.dt.getTime();
-  seconds = Math.floor((this.ctime % (1000 * 60)) / 1000);
-  minutes = Math.floor((this.ctime % (1000 * 60 * 60)) / (1000 * 60));
+
+  // dt = new Date(new Date().setTime(0));
+  // ctime = this.dt.getTime();
+  seconds = 0;
+  minutes = 0;
+  hours = 0;
   formatted_sec: any = '00';
   formatted_min: any = '00';
+  formatted_hr: any = '00';
   category: any[] = [];
   currentIndex = 0;
   currentQuestion: any = '';
@@ -71,28 +74,34 @@ export class QuizComponent implements OnInit {
   skills: any = [];
   percent: any = [];
   existingResult: any;
+  quizInfo: any;
+  totalAttempt: number = 0;
+  duration: number = 0;
+  fsAttempt=2;
 
   subSkillsQCount: Map<string, number> = new Map();
   subSkillsACount: Map<string, number> = new Map();
   subSkillsPercent: Map<string, number> = new Map();
 
-  
+
 
 
   constructor(private quizService: QuizService,
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
-    @Inject(DOCUMENT) private document: any
+    @Inject(DOCUMENT) private document: any,
+    private dialog: MatDialog
   ) {
 
   }
 
 
   ngOnInit(): void {
+
     this.elem = this.document.documentElement;
-    // this.openFullscreen()
-    this.timer();
+
+
     this.route.paramMap.subscribe(
       (param) => {
         this.quizName = param.get('name')!;
@@ -106,6 +115,42 @@ export class QuizComponent implements OnInit {
 
   }
 
+  @HostListener('document:fullscreenchange')
+  @HostListener('document:webkitfullscreenchange')
+  @HostListener('document:mozfullscreenchange')
+  @HostListener('document:MSFullscreenChange')
+  openDialog() {
+    
+    if(!this.document.fullscreen){
+      if(this.fsAttempt!==0){
+      this.dialog.open(
+      ModalComponent,
+       {
+        disableClose: false,
+        data: {
+          attempt: this.fsAttempt
+        }
+       }
+      )
+      this.fsAttempt--;
+      }
+      else{
+        this.finish();
+        this.dialog.open(
+          ModalComponent,
+           {
+            disableClose: false,
+            data: {
+              attempt: this.fsAttempt
+            }
+           }
+          )
+      }
+      }
+      
+  }
+
+ 
   getCategory(qName: string) {
     this.quizService.getCategoryByqName(qName).subscribe(
       (category) => {
@@ -126,6 +171,19 @@ export class QuizComponent implements OnInit {
       }
     );
 
+  }
+
+  getQuizInfo(quiz: string) {
+    this.quizService.getQuizInfo(quiz).subscribe(
+      (data) => {
+        this.quizInfo = data;
+        console.log(this.quizInfo)
+        this.totalAttempt = this.quizInfo.noOfAttempts;
+        this.duration = Number(this.quizInfo.duration.split(" ", 1)[0]);
+        console.log(this.duration)
+        this.clock()
+      }
+    )
   }
 
   randomQuestions() {
@@ -180,35 +238,36 @@ export class QuizComponent implements OnInit {
 
   getAllQuestions() {
     this.getCategory(this.quizName);
-    if(this.quizName==='Java') {
-    this.quizService.getAllJavaQuestions().subscribe(
-      (question) => {
-        this.allQuestions = question
-        this.randomQuestions();
-        this.assignQuestions();
+    this.getQuizInfo(this.quizName);
+    if (this.quizName === 'Java') {
+      this.quizService.getAllJavaQuestions().subscribe(
+        (question) => {
+          this.allQuestions = question
+          this.randomQuestions();
+          this.assignQuestions();
 
-        console.log(this.displayQuestions)
-      }
-    );
+          console.log(this.displayQuestions)
+        }
+      );
     }
-    else if(this.quizName==='Mongodb'){
+    else if (this.quizName === 'Mongodb') {
       this.quizService.getAllMongoQuestions().subscribe(
         (question) => {
           this.allQuestions = question
           this.randomQuestions();
           this.assignQuestions();
-  
+
           console.log(this.displayQuestions)
         }
       );
     }
-    else if(this.quizName==='Html'){
+    else if (this.quizName === 'Html') {
       this.quizService.getAllHtmlQuestions().subscribe(
         (question) => {
           this.allQuestions = question
           this.randomQuestions();
           this.assignQuestions();
-  
+
           console.log(this.displayQuestions)
         }
       );
@@ -217,12 +276,12 @@ export class QuizComponent implements OnInit {
 
   assignQuestions() {
     this.currentQuestion = this.displayQuestions[this.currentIndex].qText;
-    // this.optionType = this.displayQuestions[this.currentIndex].qType;
     this.option1 = this.displayQuestions[this.currentIndex].option1;
     this.option2 = this.displayQuestions[this.currentIndex].option2;
     this.option3 = this.displayQuestions[this.currentIndex].option3;
     this.option4 = this.displayQuestions[this.currentIndex].option4;
     this.id = this.displayQuestions[this.currentIndex].id;
+    this.optionType = this.displayQuestions[this.currentIndex].qType;
   }
 
 
@@ -233,12 +292,12 @@ export class QuizComponent implements OnInit {
     }
     this.currentIndex = this.counter;
     this.currentQuestion = this.displayQuestions[this.currentIndex].qText;
-    // this.optionType = this.displayQuestions[this.currentIndex].qType;
     this.option1 = this.displayQuestions[this.currentIndex].option1;
     this.option2 = this.displayQuestions[this.currentIndex].option2;
     this.option3 = this.displayQuestions[this.currentIndex].option3;
     this.option4 = this.displayQuestions[this.currentIndex].option4;
     this.id = this.displayQuestions[this.currentIndex].id;
+    this.optionType = this.displayQuestions[this.currentIndex].qType;
     this.attended++;
     this.qNo++;
   }
@@ -247,37 +306,62 @@ export class QuizComponent implements OnInit {
     this.counter--;
     this.currentIndex = this.counter;
     this.currentQuestion = this.displayQuestions[this.currentIndex].qText;
-    // this.optionType = this.displayQuestions[this.currentIndex].qType;
     console.log(this.currentQuestion)
     this.option1 = this.displayQuestions[this.currentIndex].option1;
     this.option2 = this.displayQuestions[this.currentIndex].option2;
     this.option3 = this.displayQuestions[this.currentIndex].option3;
     this.option4 = this.displayQuestions[this.currentIndex].option4;
     this.id = this.displayQuestions[this.currentIndex].id;
+    this.optionType = this.displayQuestions[this.currentIndex].qType;
     this.attended--;
     this.qNo--;
   }
 
-  timer() {
-    this.stopTimer = setInterval(
-      () => {
-        // this.time++
-        if (this.seconds < 59) {
-          this.seconds++
-        }
-        else {
-          this.seconds = 0;
-          this.minutes++;
-        }
-        this.formatted_sec = this.formatted_sec < 10 ? `0${this.seconds}` : `${this.seconds}`;
-        this.formatted_min = this.formatted_min < 10 ? `0${this.minutes}` : `${this.minutes}`;
-      },
-      1000
-    )
+
+
+  clock() {
+    let stoptimer = setInterval(myClock, 1000);
+    var c = this.duration * 60;
+
+
+    function myClock() {
+      var timer = document.getElementById("timer")
+      --c
+      var seconds = c % 60; // Seconds that cannot be written in minutes
+      var secondsInMinutes = (c - seconds) / 60; // Gives the seconds that COULD be given in minutes
+      var minutes = secondsInMinutes % 60; // Minutes that cannot be written in hours
+      var hours = (secondsInMinutes - minutes) / 60;
+
+      var f_h = hours.toString();
+      var f_m = minutes.toString();
+      var f_s = seconds.toString();
+
+      if (f_h.length < 2) f_h = "0" + f_h;
+      if (f_m.length < 2) f_h = "0" + f_m;
+      if (f_s.length < 2) f_s = "0" + f_s;
+
+      timer!.innerText = f_h + "H: " + f_m + "M: " + f_s+"S"
+      if (c == 0) {
+        clearInterval(stoptimer);
+      }
+    }
+  }
+
+  timediff(st: any, et: any) {
+    let diff = et - st;
+    let diff_result = new Date(diff);
+    let hours = diff_result.getHours();
+    let minutes = diff_result.getMinutes();
+    let f_hours = hours < 10 ? `0${hours}` : `${hours}`;
+    let f_min = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    return `${f_hours}:${f_min}`
   }
 
   finish() {
     let end = new Date();
+
+    let timeElapsed = this.timediff(this.startTime, end);
+    console.log(timeElapsed);
 
     for (let i = 0; i < this.displayQuestions.length; i++) {
       if (this.options[i] != null) {
@@ -341,10 +425,13 @@ export class QuizComponent implements OnInit {
             this.percent,
             `${this.startTime.toTimeString().slice(0, 8)}`,
             `${end.toTimeString().slice(0, 8)}`,
-            1
+            this.totalAttempt,
+            1,
+            timeElapsed
           );
         }
-        else if (this.existingResult[0].attempt === 1 && this.existingResult.length === 1) {
+        else if (this.existingResult.length !== this.existingResult[this.existingResult.length - 1].totalAttempt) {
+          let index = this.existingResult.length;
           this.result = new Result(
             this.currentUser.userName,
             this.currentUser.email,
@@ -358,7 +445,9 @@ export class QuizComponent implements OnInit {
             this.percent,
             `${this.startTime.toTimeString().slice(0, 8)}`,
             `${end.toTimeString().slice(0, 8)}`,
-            2
+            this.totalAttempt,
+            this.totalAttempt - this.existingResult[index - 1].attempt,
+            timeElapsed
           );
         }
 
@@ -385,7 +474,7 @@ export class QuizComponent implements OnInit {
 
 
 
-  pressEscape(event: any){
+  pressEscape(event: any) {
     event.preventDefault();
     alert("you should not press escape")
     console.log(event);

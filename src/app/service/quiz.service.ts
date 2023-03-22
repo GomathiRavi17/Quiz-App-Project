@@ -55,4 +55,24 @@ export class QuizService {
   getCategoryByqName(qName: string):Observable<any>{
     return this.httpClient.get<any>(`http://localhost:8003/category/${qName}`);
   }
+
+  getAllResults(){
+    return this.httpClient.get<any>(`http://localhost:8002/results/`)
+  }
+
+  addQuizInfo(quizInfo: any){
+    return this.httpClient.post<any>(`http://localhost:8004/quizinfo/addQuizInfo`, quizInfo)
+  }
+
+  getQuizInfo(quiz: string){
+    return this.httpClient.get<any>(`http://localhost:8004/quizinfo/${quiz}`)
+  }
+
+  updateQuizInfo(quizInfo: any){
+    return this.httpClient.put<any>(`http://localhost:8004/quizinfo/updateQuizInfo`, quizInfo)
+  }
+
+  updateResult(result: any){
+    return this.httpClient.put<any>(`http://localhost:8002/results/updateResult`,result)
+  }
 }

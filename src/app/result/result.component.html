@@ -19,40 +19,41 @@
         </div>
     </nav>
     <div class="container mb-2">
-       <div class="card mx-auto p-4 m-2" style="width:875px;">
-        <h3>{{quiz}} Assessment</h3>
-        <small>
-            <i class="fa fa-file-text" aria-hidden="true"></i>
-            <span> Assignment Report </span>
-            <i class="fa fa-clock-o" aria-hidden="true"></i>
-            <span> Taken at {{date | date}},</span>
-            <span> {{startTime}}</span>
-        </small>
-       </div>
+        <div class="card mx-auto p-4 m-2" style="width:875px;">
+            <h3>{{quiz}} Assessment</h3>
+            <small>
+                <i class="fa fa-file-text" aria-hidden="true"></i>
+                <span> Assignment Report </span>
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <span> Taken at {{date | date}},</span>
+                <span> {{startTime}}</span>
+            </small>
+        </div>
         <div class="card  m-2 mx-auto" style="width:875px;">
             <div class="card-body">
                 <div class="row">
                     <div class="col">
                         <br>
-                        <img align="left" src="https://img.icons8.com/external-nawicon-flat-nawicon/65/null/external-exam-back-to-school-nawicon-flat-nawicon.png"/>
+                        <img align="left"
+                            src="https://img.icons8.com/external-nawicon-flat-nawicon/65/null/external-exam-back-to-school-nawicon-flat-nawicon.png" />
                         &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<strong>{{(correct/questions) | percent}} <br></strong>
                         &nbsp;&nbsp;scored out of 100
                     </div>
                     <div class="col">
-                     <div *ngIf="percent >= 60">
-                        <img align="left" src="https://img.icons8.com/bubbles/100/null/test-passed.png"/> <br>
-                        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<strong>Passed<br></strong>
-                        in the assessment
-                     </div>
-                     <div *ngIf="percent < 60">
-                        <img align="left" src="https://img.icons8.com/plasticine/100/null/test-failed.png"/> <br>
-                        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<strong>Failed</strong><br>
-                        in the assessment
-                     </div>
-                    
-                   </div>
+                        <div *ngIf="percent >= 60">
+                            <img align="left" src="https://img.icons8.com/bubbles/100/null/test-passed.png" /> <br>
+                            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<strong>Passed<br></strong>
+                            in the assessment
+                        </div>
+                        <div *ngIf="percent < 60">
+                            <img align="left" src="https://img.icons8.com/plasticine/100/null/test-failed.png" /> <br>
+                            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<strong>Failed</strong><br>
+                            in the assessment
+                        </div>
+
+                    </div>
                     <div class="col">
-                        <img align="left" src="https://img.icons8.com/pulsar-color/85/null/questions.png"/><br>
+                        <img align="left" src="https://img.icons8.com/pulsar-color/85/null/questions.png" /><br>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{answered}}</strong><br>
                         problems solved out of {{questions}}
                     </div>
@@ -61,32 +62,68 @@
         </div>
         <div class="card mx-auto m-2" style="width:875px;">
             <div class="card-header">
-               <h5>Performance Summary</h5>
+                <h5>Performance Summary</h5>
             </div>
             <div class="card-body">
-               <div class="row">
-                  <div class="col" align="center">
-                    <img src="https://img.icons8.com/color/100/null/tick-tick.png"/><br>
-                    <strong style="font-size:20px;">{{correct}}</strong>
-                    <p>solutions accepted</p>
-                  </div>
-                  <div class="col" align="center">
-                    <img src="https://img.icons8.com/color/100/null/crossing-out.png"/><br>
-                    <strong style="font-size: 20px;">{{incorrect}}</strong>
-                    <p>solutions rejected</p>
-                  </div>
-               </div>
+                <div class="row">
+                    <div class="col" align="center">
+                        <img src="https://img.icons8.com/color/100/null/tick-tick.png" /><br>
+                        <strong style="font-size:15px;" style="color:green;">{{correct}}</strong>
+                        <p style="color:green;">solutions accepted</p>
+                    </div>
+                    <div class="col" align="center">
+                        <img src="https://img.icons8.com/color/100/null/crossing-out.png" /><br>
+                        <strong style="font-size: 15px;" style="color:red;">{{incorrect}}</strong>
+                        <p style="color:red;">solutions rejected</p>
+                    </div>
+                </div>
             </div>
         </div>
+
         <div class="card mx-auto" style="width:875px;">
             <div class="card-header">
                 <h5>Performance Insights</h5>
             </div>
             <div class="card-body justify-content-center p-2">
-                <canvas id="myChart" class="text-center">
-                    {{chart}}
-                </canvas>
+                <div class="row">
+                    <div class="col-8">
+                        <canvas id="myChart" class="text-center">
+                            {{chart}}
+                        </canvas>
+                    </div>
+                    <div class="col-4">
+                        <div *ngIf="expertData.size!==0" class="m-2">
+                            <span class="m-1">EXPERT</span><br>
+                            <small class="m-1">Proficient in: </small>
+                            <div>
+                                <mat-chip class="m-1" *ngFor="let s of expertData | keyvalue">
+                                    {{s.key}}
+                                </mat-chip>
+                            </div>
+                        </div>
+                        <div *ngIf="interData.size!==0" class="m-2">
+                            <strong class="m-2 text-secondary" style="letter-spacing: 1px">INTERMEDIATE</strong><br>
+                            <small class="m-2">Acquire Proficieny in:</small>
+                            <div>
+                                <mat-chip class="m-1" *ngFor="let s of interData | keyvalue">
+                                    {{s.key}}
+                                </mat-chip>
+                            </div>
+                        </div>
+                        <div *ngIf="beginner.size!==0" class="m-2">
+                            <strong class="m-2 text-secondary" style="letter-spacing: 1px">BEGINNER</strong><br>
+                            <small class="m-2">Need Improvement in:</small>
+                            <div>
+                                <mat-chip class="m-1" *ngFor="let s of beginner | keyvalue">
+                                    {{s.key}}
+                                </mat-chip>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
+
 </body>

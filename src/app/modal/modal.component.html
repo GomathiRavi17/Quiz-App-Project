@@ -1,0 +1,13 @@
+<div >
+	<mat-dialog-content>
+		<p *ngIf="data.attempt!==0">
+			You are Only left with {{data.attempt}} Attempts
+		</p>
+		<p *ngIf="data.attempt===0">
+			You have reached maximum attempts to exit fullscreen, so you test is autosubmitted
+		</p>
+	</mat-dialog-content>
+	<mat-dialog-actions align="center">
+		<button mat-raised-button color="primary" (click)="openFullscreen()" tabindex="1" >Okay</button>
+	</mat-dialog-actions>
+</div>

@@ -23,6 +23,10 @@ import {MatInputModule} from '@angular/material/input';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { FullscreenDialogComponent } from './fullscreen-dialog/fullscreen-dialog.component';
+import { ModalComponent } from './modal/modal.component';
+import { EnablefsComponent } from './enablefs/enablefs.component';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +34,9 @@ import { FullscreenDialogComponent } from './fullscreen-dialog/fullscreen-dialog
     DashboardComponent,
     QuizComponent,
     ResultComponent,
-    FullscreenDialogComponent
+    FullscreenDialogComponent,
+    ModalComponent,
+    EnablefsComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +56,8 @@ import { FullscreenDialogComponent } from './fullscreen-dialog/fullscreen-dialog
     MatInputModule,
     MatPaginatorModule,
     MatSortModule,
-    FormsModule
+    FormsModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

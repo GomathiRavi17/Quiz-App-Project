@@ -1,7 +1,9 @@
 <html>
+
 <head>
 </head>
-<body (window:keyup.esc)="pressEscape($event)">
+
+<body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand">Quiz App</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -18,11 +20,12 @@
         </div>
     </nav>
     <br><br>
-    <div class="card mb-2 mx-auto" style="width:600px;">
+    <div class="card mb-2 mx-auto border border-3" style="width:600px">
         <div class="card-body">
             <div class="row">
-                <div class="col">
-                    {{formatted_min}}:{{formatted_sec}}
+                <div class="col" id="timer">
+                    <!-- {{formatted_hr}}:{{formatted_min}}:{{formatted_sec}} -->
+
                 </div>
                 <div class="col">
                     <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
@@ -32,34 +35,56 @@
             </div>
 
             <form #question="ngForm" novalidate>
-               
+
                 <div style="white-space:pre-wrap;">
                     {{qNo}}. {{currentQuestion}}
                 </div>
+
               
-                <div class="m2 p2">
-                <strong class="text-secondary" *ngIf="option.invalid">Unsolved</strong>
-                <strong class="text-success" *ngIf="option.valid">Attempted</strong>
+                <div *ngIf="optionType==='Single'">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="option"
+                            [(ngModel)]="options[this.currentIndex]" value="Option 1" required #option="ngModel">
+                        <label class="form-check-label">{{option1}}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="option"
+                            [(ngModel)]="options[this.currentIndex]" value="Option 2" required #option="ngModel">
+                        <label class="form-check-label">{{option2}}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="option"
+                            [(ngModel)]="options[this.currentIndex]" value="Option 3" required #option="ngModel">
+                        <label class="form-check-label">{{option3}}</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="option"
+                            [(ngModel)]="options[this.currentIndex]" value="Option 4" required #option="ngModel">
+                        <label class="form-check-label">{{option4}}</label>
+                    </div>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="option" [(ngModel)]="options[this.currentIndex]"
-                        value="Option 1" required #option="ngModel">
-                    <label class="form-check-label">{{option1}}</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input"  type="radio" name="option" [(ngModel)]="options[this.currentIndex]"
-                        value="Option 2" required #option="ngModel">
-                    <label class="form-check-label">{{option2}}</label>
-                </div> 
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="option" [(ngModel)]="options[this.currentIndex]"
-                        value="Option 3" required #option="ngModel">
-                    <label class="form-check-label">{{option3}}</label>
-                </div>
-                <div class="form-check mb-2">
-                    <input class="form-check-input" type="radio" name="option" [(ngModel)]="options[this.currentIndex]"
-                        value="Option 4" required #option="ngModel">
-                    <label class="form-check-label">{{option4}}</label>
+
+                <div  *ngIf="optionType==='Multiple'">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="optiona"
+                            [(ngModel)]="options[this.currentIndex]" value="Option 1" required #option1="ngModel">
+                        <label class="form-check-label">{{option1}}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="optionb"
+                            [(ngModel)]="options[this.currentIndex]" value="Option 2" required #option2="ngModel">
+                        <label class="form-check-label">{{option2}}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="optionc"
+                            [(ngModel)]="options[this.currentIndex]" value="Option 3" required #option3="ngModel">
+                        <label class="form-check-label">{{option3}}</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" name="optiond"
+                            [(ngModel)]="options[this.currentIndex]" value="Option 4" required #option4="ngModel">
+                        <label class="form-check-label">{{option4}}</label>
+                    </div>
                 </div>
             </form>
             <div>
@@ -72,5 +97,7 @@
             </div>
         </div>
     </div>
+    <div class="cdk-overlay-container"></div>
 </body>
+
 </html>
