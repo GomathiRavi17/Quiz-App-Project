@@ -16,7 +16,7 @@ import { EditResultComponent } from '../edit-result/edit-result.component';
 export class ViewResultComponent implements OnInit{
   results: any;
   dataSource: any;
-  displayedColumns: string[] = ['id','name','email','quizName','date','percentage','attempt', 'totalAttempt']
+  displayedColumns: string[] = ['id','name','email','quizName','date','percentage','attempt', 'totalAttempt','timeTaken']
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild("resultSort")sort: MatSort = new MatSort;

@@ -18,7 +18,7 @@ export class EnablefsComponent implements OnInit{
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any
     ){
-
+      dialogRef.disableClose = true
   }
 
   ngOnInit(){

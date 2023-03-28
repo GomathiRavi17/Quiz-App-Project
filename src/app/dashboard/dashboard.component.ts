@@ -75,7 +75,8 @@ export class DashboardComponent implements OnInit {
               {
                 data: {
                   quiz: quizName
-                }
+                },
+                disableClose: false
               }
             )
             this.startTime();
@@ -89,11 +90,10 @@ export class DashboardComponent implements OnInit {
               {
                 data: {
                   quiz: quizName
-                }
+                },
+                disableClose: false
               }
             )
-
-
             this.startTime();
 
           }

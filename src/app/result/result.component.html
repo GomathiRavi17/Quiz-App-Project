@@ -5,6 +5,10 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand">Quiz App</a>
+        <span class="filler" style="flex: 1 1 auto"></span>
+        <span class="filler" style="flex: 1 1 auto"></span>
+        <span class="filler" style="flex: 1 1 auto"></span>
+        <span class="filler" style="flex: 1 1 auto"></span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -12,8 +16,30 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" role="button" (click)="logout()">Logout</a>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp; &nbsp;<li class="nav-item" style="font-size: 18px">
+                    <a class="nav-link active" routerLink="/user-dashboard">Dashboard</a>
+                </li>
+                &nbsp; &nbsp;<li class="nav-item">
+                    <a class="nav-link active" role="button" (click)="logout()" style="font-size: 18px">Logout</a>
                 </li>
             </ul>
         </div>
@@ -32,14 +58,19 @@
         <div class="card  m-2 mx-auto" style="width:875px;">
             <div class="card-body">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-md-4 p-2">
+                        <img align="left" src="https://img.icons8.com/color/96/null/story-time.png"/><br>
+                        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<strong>{{result.timeTaken}} <br></strong>
+                        &nbsp;&nbsp;time taken for completion
+                    </div>
+                    <div class="col-md-4 p-2">
                         <br>
                         <img align="left"
                             src="https://img.icons8.com/external-nawicon-flat-nawicon/65/null/external-exam-back-to-school-nawicon-flat-nawicon.png" />
                         &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<strong>{{(correct/questions) | percent}} <br></strong>
                         &nbsp;&nbsp;scored out of 100
                     </div>
-                    <div class="col">
+                    <div class="col-md-4 p-2">
                         <div *ngIf="percent >= 60">
                             <img align="left" src="https://img.icons8.com/bubbles/100/null/test-passed.png" /> <br>
                             &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<strong>Passed<br></strong>
@@ -52,7 +83,7 @@
                         </div>
 
                     </div>
-                    <div class="col">
+                    <div class="col-md-5 p-2">
                         <img align="left" src="https://img.icons8.com/pulsar-color/85/null/questions.png" /><br>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{answered}}</strong><br>
                         problems solved out of {{questions}}
@@ -62,7 +93,7 @@
         </div>
         <div class="card mx-auto m-2" style="width:875px;">
             <div class="card-header">
-                <h5>Performance Summary</h5>
+                <p>Performance Summary</p>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -82,7 +113,7 @@
 
         <div class="card mx-auto" style="width:875px;">
             <div class="card-header">
-                <h5>Performance Insights</h5>
+                <p>Performance Insights</p>
             </div>
             <div class="card-body justify-content-center p-2">
                 <div class="row">
@@ -93,7 +124,7 @@
                     </div>
                     <div class="col-4">
                         <div *ngIf="expertData.size!==0" class="m-2">
-                            <span class="m-1">EXPERT</span><br>
+                            <strong class="m-1 text-secondary" style="letter-spacing: 1px">EXPERT</strong><br>
                             <small class="m-1">Proficient in: </small>
                             <div>
                                 <mat-chip class="m-1" *ngFor="let s of expertData | keyvalue">

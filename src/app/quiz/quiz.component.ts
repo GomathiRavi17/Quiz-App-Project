@@ -7,9 +7,7 @@ import { User } from '../authorization/signup/User';
 import { ModalComponent } from '../modal/modal.component';
 import { Result } from '../result/result';
 import { QuizService } from '../service/quiz.service';
-import { fromEvent, Subscription } from 'rxjs';
-import { filter, distinctUntilChanged } from 'rxjs/operators';
-import { EnablefsComponent } from '../enablefs/enablefs.component';
+
 
 @Component({
   selector: 'app-quiz',
@@ -35,8 +33,6 @@ export class QuizComponent implements OnInit {
   elem: any;
   stopTimer: any;
 
-  // dt = new Date(new Date().setTime(0));
-  // ctime = this.dt.getTime();
   seconds = 0;
   minutes = 0;
   hours = 0;
@@ -53,9 +49,10 @@ export class QuizComponent implements OnInit {
   option4: any = '';
   id: any = '';
   options: any = [];
-  panelsts: boolean = false;
+
   qNo: number = 1;
   optionType: string = '';
+  cbOptions: string = '';
 
   currentDate = new Date();
   startTime: any = null;
@@ -77,14 +74,12 @@ export class QuizComponent implements OnInit {
   quizInfo: any;
   totalAttempt: number = 0;
   duration: number = 0;
-  fsAttempt=2;
+  fsAttempt = 2;
+
 
   subSkillsQCount: Map<string, number> = new Map();
   subSkillsACount: Map<string, number> = new Map();
   subSkillsPercent: Map<string, number> = new Map();
-
-
-
 
   constructor(private quizService: QuizService,
     private router: Router,
@@ -115,42 +110,43 @@ export class QuizComponent implements OnInit {
 
   }
 
+  @HostListener('document:visibilitychange')
   @HostListener('document:fullscreenchange')
   @HostListener('document:webkitfullscreenchange')
   @HostListener('document:mozfullscreenchange')
   @HostListener('document:MSFullscreenChange')
   openDialog() {
-    
-    if(!this.document.fullscreen){
-      if(this.fsAttempt!==0){
-      this.dialog.open(
-      ModalComponent,
-       {
-        disableClose: false,
-        data: {
-          attempt: this.fsAttempt
-        }
-       }
-      )
-      this.fsAttempt--;
-      }
-      else{
-        this.finish();
+
+    if (!this.document.fullscreen) {
+      if (this.fsAttempt !== 0) {
         this.dialog.open(
           ModalComponent,
-           {
+          {
             disableClose: false,
             data: {
               attempt: this.fsAttempt
             }
-           }
-          )
+          }
+        )
+        this.fsAttempt--;
       }
+      else {
+        this.finish();
+        this.dialog.open(
+          ModalComponent,
+          {
+            disableClose: false,
+            data: {
+              attempt: this.fsAttempt
+            }
+          }
+        )
       }
-      
+    }
+
   }
 
- 
+
   getCategory(qName: string) {
     this.quizService.getCategoryByqName(qName).subscribe(
       (category) => {
@@ -195,13 +191,9 @@ export class QuizComponent implements OnInit {
 
       const item = this.allQuestions[randomIndex];
 
-
-
       if (this.displayQuestions.includes(item)) {
         continue
       }
-
-
 
       if ((item.level === 'Beginner') && (this.bCount !== this.beginner)) {
         this.bCount++;
@@ -272,6 +264,28 @@ export class QuizComponent implements OnInit {
         }
       );
     }
+    else if (this.quizName === 'JavaIntermediate') {
+      this.quizService.getAllJavaInterQuestions().subscribe(
+        (question) => {
+          this.allQuestions = question
+          this.randomQuestions();
+          this.assignQuestions();
+
+          console.log(this.displayQuestions)
+        }
+      );
+    }
+    else if (this.quizName === 'JavaAdvance') {
+      this.quizService.getAllJavaAdvanceQuestions().subscribe(
+        (question) => {
+          this.allQuestions = question
+          this.randomQuestions();
+          this.assignQuestions();
+
+          console.log(this.displayQuestions)
+        }
+      );
+    }
   }
 
   assignQuestions() {
@@ -284,7 +298,24 @@ export class QuizComponent implements OnInit {
     this.optionType = this.displayQuestions[this.currentIndex].qType;
   }
 
+  onChange(option: string, target: any) {
+    if (target.checked) {
+      if (this.cbOptions === '') {
+        this.cbOptions = this.cbOptions.concat(option)
+      }
+      else {
+        this.cbOptions = this.cbOptions.concat(", ", option)
+      }
+      this.options[this.currentIndex] = this.cbOptions
+      console.log(this.options)
+    }
+    else {
+      this.cbOptions = this.cbOptions.replace(", " + option, "")
+      this.options[this.currentIndex] = this.cbOptions
+    }
 
+    console.log(this.cbOptions)
+  }
 
   nextQuestion() {
     if (this.counter <= this.displayQuestions.length) {
@@ -302,11 +333,12 @@ export class QuizComponent implements OnInit {
     this.qNo++;
   }
 
+
+
   prevQuestion() {
     this.counter--;
     this.currentIndex = this.counter;
     this.currentQuestion = this.displayQuestions[this.currentIndex].qText;
-    console.log(this.currentQuestion)
     this.option1 = this.displayQuestions[this.currentIndex].option1;
     this.option2 = this.displayQuestions[this.currentIndex].option2;
     this.option3 = this.displayQuestions[this.currentIndex].option3;
@@ -323,6 +355,9 @@ export class QuizComponent implements OnInit {
     let stoptimer = setInterval(myClock, 1000);
     var c = this.duration * 60;
 
+    if (c === 0) {
+      this.finish()
+    }
 
     function myClock() {
       var timer = document.getElementById("timer")
@@ -337,10 +372,16 @@ export class QuizComponent implements OnInit {
       var f_s = seconds.toString();
 
       if (f_h.length < 2) f_h = "0" + f_h;
-      if (f_m.length < 2) f_h = "0" + f_m;
+      if (f_m.length < 2) f_m = "0" + f_m;
       if (f_s.length < 2) f_s = "0" + f_s;
 
-      timer!.innerText = f_h + "H: " + f_m + "M: " + f_s+"S"
+      if(f_h=="00"){
+        timer!.innerText = f_m + "M: " + f_s + "S"
+      }
+      else{
+      timer!.innerText = f_h + "H: " + f_m + "M: " + f_s + "S"
+      }
+
       if (c == 0) {
         clearInterval(stoptimer);
       }
@@ -349,12 +390,24 @@ export class QuizComponent implements OnInit {
 
   timediff(st: any, et: any) {
     let diff = et - st;
-    let diff_result = new Date(diff);
-    let hours = diff_result.getHours();
-    let minutes = diff_result.getMinutes();
-    let f_hours = hours < 10 ? `0${hours}` : `${hours}`;
-    let f_min = minutes < 10 ? `0${minutes}` : `${minutes}`;
-    return `${f_hours}:${f_min}`
+    let elpTime = Math.floor((diff / 1000))
+    var seconds = elpTime % 60; // Seconds that cannot be written in minutes
+    var secondsInMinutes = (elpTime - seconds) / 60; // Gives the seconds that COULD be given in minutes
+    var minutes = secondsInMinutes % 60; // Minutes that cannot be written in hours
+    var hours = (secondsInMinutes - minutes) / 60;
+
+    var f_h = hours.toString();
+    var f_m = minutes.toString();
+    var f_s = seconds.toString();
+
+
+
+    if (f_h = "00") {
+      return `${f_m} m`
+    }
+    else {
+      return `${f_h} h:${f_m} m`
+    }
   }
 
   finish() {
@@ -365,13 +418,26 @@ export class QuizComponent implements OnInit {
 
     for (let i = 0; i < this.displayQuestions.length; i++) {
       if (this.options[i] != null) {
-        if (this.displayQuestions[i].correctAnswer == this.options[i]) {
-          this.rightAnswer++;
-          this.subSkillsACount.set(this.displayQuestions[i].subSkill, this.subSkillsACount.get(this.displayQuestions[i].subSkill)! + 1)
+        if (this.displayQuestions[i].qType = 'Single') {
+          if (this.displayQuestions[i].correctAnswer == this.options[i]) {
+            this.rightAnswer++;
+            this.subSkillsACount.set(this.displayQuestions[i].subSkill, this.subSkillsACount.get(this.displayQuestions[i].subSkill)! + 1)
+          }
+          else {
+            this.wrongAnswer++;
+          }
         }
         else {
-          this.wrongAnswer++;
+          let sa = this.options[i].split(",")
+          let ca = this.displayQuestions[i].correctAnswer.split(",")
+          if (ca.every((s: string) => sa.includes(s))) {
+            this.rightAnswer++;
+          }
+          else {
+            this.wrongAnswer++;
+          }
         }
+
       }
     }
 
@@ -401,10 +467,6 @@ export class QuizComponent implements OnInit {
         }
       }
     );
-
-
-
-
 
     this.quizService.getResultByName(this.currentUser.userName, this.quizName).subscribe(
       (data) => {
@@ -461,25 +523,12 @@ export class QuizComponent implements OnInit {
 
       }
     );
-
-
-
-
-
   }
 
   logout() {
     this.authService.loggedOut();
   }
 
-
-
-  pressEscape(event: any) {
-    event.preventDefault();
-    alert("you should not press escape")
-    console.log(event);
-    return false
-  }
 
   openFullscreen() {
     if (this.elem.requestFullscreen) {
