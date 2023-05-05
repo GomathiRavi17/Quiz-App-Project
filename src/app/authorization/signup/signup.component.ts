@@ -12,7 +12,10 @@ import { User } from './User';
 })
 export class SignupComponent {
   roleHasError = true;
-
+  input: string = '';
+  confirmPass: string = '';
+  visibility: boolean = false;
+  cvisibility: boolean = false;
 
   user: User = {
     userName: '',
@@ -22,10 +25,9 @@ export class SignupComponent {
     role: ''
   }
 
- 
-
   ngOnInit(): void {
-   
+    this.input = "password";
+    this.confirmPass = "password";
   }
 
   constructor(private fb: FormBuilder, 
@@ -75,6 +77,26 @@ export class SignupComponent {
     return this.signupForm.get('confirmPassword');
   }
 
+  onClick() {
+    if (this.input === 'password') {
+      this.input = 'text';
+      this.visibility = true;
+    } else {
+      this.input = 'password';
+      this.visibility = false;
+    }
+  }
+
+  onChange() {
+    if (this.confirmPass === 'password') {
+      this.confirmPass = 'text';
+      this.cvisibility = true;
+    } else {
+      this.confirmPass = 'password';
+      this.cvisibility = false;
+    }
+  }
+
   onSubmit() {
     this.user = {
       userName: this.signupForm.get('username')?.value!,
@@ -87,12 +109,10 @@ export class SignupComponent {
     this.authService.register(this.user).subscribe(
       {
         next: (data) => console.log(data),
-        error: (data)=>{ 
+        error: ()=>{ 
           if(confirm("Registered Successfully!")){
             this.router.navigate(['/login']);
-            console.log(data);
           }
-         
         },
       }
     );

@@ -27,88 +27,88 @@ export class QuestionService {
   // }
   
   getAll(){
-    return this.http.get("http://localhost:8001/question/all");
+    return this.http.get("http://localhost:8011/question/all");
   }
   getAllJava(){
-    return this.http.get("http://localhost:8001/question/allJava");
+    return this.http.get("http://localhost:8011/question/allJava");
   }
   getAllMongo(){
-    return this.http.get("http://localhost:8001/question/allMongo");
+    return this.http.get("http://localhost:8011/question/allMongo");
   }
   deleteMongo(id:number){
-    return this.http.delete("http://localhost:8001/question/deleteMongo/"+id,{responseType:"text"})
+    return this.http.delete("http://localhost:8011/question/deleteMongo/"+id,{responseType:"text"})
   }
   getAllHtml(){
-    return this.http.get("http://localhost:8001/question/allHtml");
+    return this.http.get("http://localhost:8011/question/allHtml");
   }
   deleteHtml(id:number){
-    return this.http.delete("http://localhost:8001/question/deleteHtml/"+id,{responseType:"text"})
+    return this.http.delete("http://localhost:8011/question/deleteHtml/"+id,{responseType:"text"})
   }
 
   getById(id:number){
-    return this.http.get("http://localhost:8001/question/java/"+id);
+    return this.http.get("http://localhost:8011/question/java/"+id);
   }
 
   updateJava(java:[]){
-    return this.http.put("http://localhost:8001/question/update",java);
+    return this.http.put("http://localhost:8011/question/update",java);
   }
 
   deleteJava(id:number){
-    return this.http.delete("http://localhost:8001/question/delete/"+id ,{responseType:"text"})
+    return this.http.delete("http://localhost:8011/question/delete/"+id ,{responseType:"text"})
   }
 
   getCollections(){
-    return this.http.get("http://localhost:8001/question/getLists");
+    return this.http.get("http://localhost:8011/question/getLists");
   }
 // ===========================================================================================================================================
   getAllJavaBasic(){
-    return this.http.get("http://localhost:8001/question/allJavaBasic");
+    return this.http.get("http://localhost:8011/question/allJavaBasic");
   }
 
   getByIdBasic(id:number){
-    return this.http.get("http://localhost:8001/question/javaBasic/"+id);
+    return this.http.get("http://localhost:8011/question/javaBasic/"+id);
   }
 
   updateJavaBasic(java:[]){
-    return this.http.put("http://localhost:8001/question/updateBasic",java);
+    return this.http.put("http://localhost:8011/question/updateBasic",java);
   }
 
   deleteJavaBasic(id:number){
-    return this.http.delete("http://localhost:8001/question/deleteBasic/"+id,{responseType:"text"})
+    return this.http.delete("http://localhost:8011/question/deleteBasic/"+id,{responseType:"text"})
   }
 // ===========================================================================================================================================
 
   getAllJavaIntermediate(){
-    return this.http.get("http://localhost:8001/question/allJavaIntermediate");
+    return this.http.get("http://localhost:8011/question/allJavaIntermediate");
   }
 
   getByIdIntermediate(id:number){
-    return this.http.get("http://localhost:8001/question/javaIntermediate/"+id);
+    return this.http.get("http://localhost:8011/question/javaIntermediate/"+id);
   }
 
   updateJavaIntermediate(java:[]){
-    return this.http.put("http://localhost:8001/question/updateIntermediate",java);
+    return this.http.put("http://localhost:8011/question/updateIntermediate",java);
   }
 
   deleteJavaIntermediate(id:number){
-    return this.http.delete("http://localhost:8001/question/deleteIntermediate/"+id,{responseType:"text"})
+    return this.http.delete("http://localhost:8011/question/deleteIntermediate/"+id,{responseType:"text"})
   }
 // ===========================================================================================================================================
 
 getAllJavaAdvance(){
-  return this.http.get("http://localhost:8001/question/allJavaAdvance");
+  return this.http.get("http://localhost:8011/question/allJavaAdvance");
 }
 
 getByIdAdvance(id:number){
-  return this.http.get("http://localhost:8001/question/javaAdvance/"+id);
+  return this.http.get("http://localhost:8011/question/javaAdvance/"+id);
 }
 
 updateJavaAdvance(java:[]){
-  return this.http.put("http://localhost:8001/question/updateAdvance",java);
+  return this.http.put("http://localhost:8011/question/updateAdvance",java);
 }
 
 deleteJavaAdvance(id:number){
-  return this.http.delete("http://localhost:8001/question/deleteAdvance/"+id,{responseType:"text"})
+  return this.http.delete("http://localhost:8011/question/deleteAdvance/"+id,{responseType:"text"})
 }
 
 }

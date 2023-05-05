@@ -9,31 +9,31 @@ export class QuizService {
   constructor(private httpClient: HttpClient) { }
 
   getAllJavaQuestions(): Observable<any>{
-    return this.httpClient.get<any>("http://localhost:8001/question/allJava");
+    return this.httpClient.get<any>("http://localhost:8011/question/allJava");
   }
 
   getAllMongoQuestions(): Observable<any>{
-    return this.httpClient.get<any>("http://localhost:8001/question/allMongo");
+    return this.httpClient.get<any>("http://localhost:8011/question/allMongo");
   }
 
   getAllHtmlQuestions(): Observable<any>{
-    return this.httpClient.get<any>("http://localhost:8001/question/allHtml");
+    return this.httpClient.get<any>("http://localhost:8011/question/allHtml");
   }
 
   getAllJavaBasicQuestions(): Observable<any>{
-    return this.httpClient.get<any>("http://localhost:8001/question/allJavaBasic");
+    return this.httpClient.get<any>("http://localhost:8011/question/allJavaBasic");
   }
 
   getAllJavaInterQuestions(): Observable<any>{
-    return this.httpClient.get<any>("http://localhost:8001/question/allJavaIntermediate");
+    return this.httpClient.get<any>("http://localhost:8011/question/allJavaIntermediate");
   }
 
   getAllJavaAdvanceQuestions(): Observable<any>{
-    return this.httpClient.get<any>("http://localhost:8001/question/allJavaAdvance");
+    return this.httpClient.get<any>("http://localhost:8011/question/allJavaAdvance");
   }
 
   addQuestion(questions:any):Observable<any[]>{
-    return this.httpClient.post<any[]>("http://localhost:8001/question/addQuestion", questions);
+    return this.httpClient.post<any[]>("http://localhost:8011/question/addQuestion", questions);
   }
 
   addResult(result: any):Observable<any>{

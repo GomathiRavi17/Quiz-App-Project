@@ -75,7 +75,7 @@ export class AddquestionComponent implements OnInit{
 
           if (this.selectedTeam == 'Java') {
             let upload = this.httpClient.post(
-              'http://localhost:8001/question/addJava',
+              'http://localhost:8011/question/addJava',
               this.questions
             );
             alert("File uploaded successfully!")
@@ -84,7 +84,7 @@ export class AddquestionComponent implements OnInit{
             });
           } else if (this.selectedTeam == 'Mongodb') {
             let upload = this.httpClient.post(
-              'http://localhost:8001/question/addMongo',
+              'http://localhost:8011/question/addMongo',
               this.questions
             );
             alert("File uploaded successfully!")
@@ -93,7 +93,7 @@ export class AddquestionComponent implements OnInit{
             });
           } else if (this.selectedTeam == 'Html') {
             let upload = this.httpClient.post(
-              'http://localhost:8001/question/addHtml',
+              'http://localhost:8011/question/addHtml',
               this.questions
             );
             alert("File uploaded successfully!")
@@ -102,7 +102,7 @@ export class AddquestionComponent implements OnInit{
             });
           }else if (this.selectedTeam == 'JavaBasic') {
             let upload = this.httpClient.post(
-              'http://localhost:8001/question/addJavaBasic',
+              'http://localhost:8011/question/addJavaBasic',
               this.questions
             );
             alert("File uploaded successfully!")
@@ -111,7 +111,7 @@ export class AddquestionComponent implements OnInit{
             });
           }else if (this.selectedTeam == 'JavaIntermediate') {
             let upload = this.httpClient.post(
-              'http://localhost:8001/question/addJavaIntermediate',
+              'http://localhost:8011/question/addJavaIntermediate',
               this.questions
             );
             alert("File uploaded successfully!")
@@ -120,7 +120,7 @@ export class AddquestionComponent implements OnInit{
             });
           }else if (this.selectedTeam == 'JavaAdvance') {
             let upload = this.httpClient.post(
-              'http://localhost:8001/question/addJavaAdvance',
+              'http://localhost:8011/question/addJavaAdvance',
               this.questions
             );
             alert("File uploaded successfully!")

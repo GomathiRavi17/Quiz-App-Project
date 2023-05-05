@@ -6,6 +6,7 @@ import { AuthService } from '../authorization/auth.service';
 import { User } from '../authorization/signup/User';
 import { EnablefsComponent } from '../enablefs/enablefs.component';
 import { QuizService } from '../service/quiz.service';
+import { QuestionService } from 'src/app/service/question.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,17 +23,19 @@ export class DashboardComponent implements OnInit {
     role: ''
   }
   result: any;
+  collections: any;
 
   constructor(
     private authService: AuthService,
     @Inject(DOCUMENT) private document: any,
     private quizService: QuizService,
     private router: Router,
-    private dialog: MatDialog
+    private questionService: QuestionService
   ) {
   }
 
   ngOnInit(): void {
+    this.getAllQuiz();
     this.elem = document.documentElement;
     this.currentUser = JSON.parse(localStorage.getItem("currentUser")!);
 
@@ -44,6 +47,19 @@ export class DashboardComponent implements OnInit {
 
   startTime() {
     localStorage.setItem("startTime", JSON.stringify(new Date()))
+  }
+
+  getAllQuiz(){
+    this.questionService.getCollections().subscribe(
+      (data) => {
+        this.collections = data
+        this.collections.forEach((c: string,index: number) => {
+          if(c=="sequence"){
+            this.collections.splice(index,1);
+          }
+        })
+      }
+    );
   }
 
   openFullscreen() {
@@ -71,14 +87,7 @@ export class DashboardComponent implements OnInit {
           console.log(this.result)
           if (this.result == null) {
 
-            this.dialog.open(EnablefsComponent,
-              {
-                data: {
-                  quiz: quizName
-                },
-                disableClose: false
-              }
-            )
+            this.router.navigate(['/instructions', quizName])
             this.startTime();
           }
           else if (this.result.length !== this.result[this.result.length - 1].totalAttempt) {
@@ -86,14 +95,9 @@ export class DashboardComponent implements OnInit {
             let index = this.result.length;
 
             alert("You are only left with " + (this.result[index - 1].totalAttempt - this.result[index - 1].attempt) + " attempt!");
-            this.dialog.open(EnablefsComponent,
-              {
-                data: {
-                  quiz: quizName
-                },
-                disableClose: false
-              }
-            )
+
+            this.router.navigate(['/instructions', quizName])
+
             this.startTime();
 
           }

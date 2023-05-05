@@ -2,3 +2,7 @@ nav{
     font-size: 20px;
     height: 60px;
 }
+
+.filler{
+    flex: 1 1 auto;
+}

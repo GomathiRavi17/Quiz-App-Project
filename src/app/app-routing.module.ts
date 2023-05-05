@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { ResultComponent } from './result/result.component';
 import { ViewResultComponent } from './admin/view-result/view-result.component';
+import { InstructionsComponent } from './instructions/instructions.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
     path: 'viewresults',
     component: ViewResultComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'instructions/:name',
+    component: InstructionsComponent
   }
 ];
 

@@ -1,70 +1,85 @@
-<br><br>
-<div class="row d-flex justify-content-center align-items-center">
-<div class="card mb-2 mx-auto" style="width:400px;">
+<div>
+    <p>
+        <mat-toolbar color="primary">
+            <span>Quiz App</span>
+            <span class="filler" style="flex: 1 1 auto;"></span>
+            <span>
+              <a style="text-decoration: none; color: white" routerLink='/login'>Login</a>
+            </span>
+        </mat-toolbar>
+    </p>
+  </div>
+<div class="row d-flex justify-content-center align-items-center mt-3">
+<mat-card style="width:400px;">
+    <mat-card-header class="mx-auto">
+        <mat-card-title>
+          <p class="mat-h1" style="color:#4b0082;">Sign Up</p>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
     <form [formGroup]="signupForm">
-        <h2 class="text-center m-2">Sign Up</h2>
-        <div class="form-group mb-2">
-            <input formControlName="username" type="text" class="form-control"
-                [class.is-invalid]="username!.invalid && username!.touched"
-                [class.is-valid]="username!.valid && !username!.errors" name="username" placeholder="Username">
-            <div *ngIf="username!.invalid && username!.touched">
-                <small class="text-danger" *ngIf="username!.errors!['required']">Username is Required</small>
-                <small class="text-danger" *ngIf="username!.errors!['minlength']">Username must contain atleast 3
-                    characters</small>
-                <small class="text-danger" *ngIf="username!.errors!['pattern']">Only
-                    Alphabets are Allowed</small>
-                <small class="text-danger" *ngIf="username!.errors!['maxlength']">Username should not exceed 25
-                    characters</small>
-
-            </div>
-        </div>
-        <div class="form-group mb-2">
-            <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1"
-            aria-describedby="emailHelp" placeholder="Email Address"
-            [class.is-invalid]="email!.invalid && (email!.errors && email!.touched)"
-            [class.is-valid]="email!.valid && (!email!.errors && email!.touched)">
-        <div *ngIf="email!.invalid && (email!.errors && email!.touched)">
-            <small class="text-danger" *ngIf="email!.invalid && email!.errors['required']">Email is
-                Required</small>
-            <small class="text-danger" *ngIf="email!.invalid && email!.errors['pattern']">Enter a
-                Valid Email Address</small>
-        </div>
-        </div>
+        <div>
+            <mat-form-field appearance="outline" color="primary" style="width: 350px;">
+              <mat-icon matPrefix color="primary">person</mat-icon>
+              <mat-label>Username</mat-label>
+              <input formControlName="username" matInput type="text" name="username">
+              <mat-error *ngIf="username?.hasError('required')">Username is Required</mat-error>
+            <mat-error *ngIf="username?.hasError('minlength')">Username must contain atleast 3 characters</mat-error>
+            <mat-error *ngIf="username?.hasError('pattern')">Only Alphabets are Allowed</mat-error>
+            </mat-form-field>
+          </div>
       
-        <div class="form-group mb-2">
-           
-                <input formControlName="password" type="password" class="form-control" name="password"
-                    placeholder="Password"
-                    [class.is-invalid]="password!.invalid && (password!.errors && password!.touched)"
-                    [class.is-valid]="password!.valid && (!password!.errors && password!.touched)">
-            
-            <div *ngIf="password!.invalid && (password!.errors && password!.touched)">
-                <small class="text-danger" *ngIf="password!.invalid && password!.errors!['required']">Password is
-                    required</small>
-                <small class="text-danger" *ngIf="password!.invalid && password!.errors!['minlength']">Password must be
-                    atleast 5 characters long</small>
-                <!-- <small class="text-danger" *ngIf="password!.invalid && password!.errors!['pattern']"> Password must
-                    contain at least one uppercase, one lowercase, and one number</small> -->
-            </div>
-        </div>
-        <div class="form-group mb-2">
-            
-                <input formControlName="confirmPassword" type="password" class="form-control" name="confirm_password"
-                    placeholder="Confirm Password" required
-                    [class.is-invalid]="confirmPassword!.invalid && confirmPassword!.touched"
-                    [class.is-valid]="confirmPassword!.valid && !confirmPassword!.errors">
-            
-            <div *ngIf="confirmPassword!.invalid && confirmPassword!.touched">
-                <small class="text-danger" *ngIf="confirmPassword!.errors!['required']">Confirm Password is
-                    required</small>
-                <small class="text-danger" *ngIf="confirmPassword!.errors!['matching']">Password doesn't match</small>
-            </div>
-        </div>
+        <div>
+            <mat-form-field appearance="outline" color="primary" style="width: 350px;">
+              <mat-icon matPrefix color="primary">email</mat-icon>
+              <mat-label>Email Address</mat-label>
+              <input formControlName="email" type="email" matInput>
+              <mat-error *ngIf="email?.hasError('required')">Email Address is Required</mat-error>
+            <mat-error *ngIf="email?.hasError('pattern')">Enter a Valid Email Address</mat-error>
+            </mat-form-field>
+          </div>
+        <div>
+            <mat-form-field appearance="outline" color="primary" style="width: 350px;">
+              <mat-icon matPrefix color="primary">lock</mat-icon>
+              <mat-label>Password</mat-label>
+              <input formControlName="password"  [type]="input" matInput name="password">
+              <button mat-icon-button matSuffix  *ngIf="visibility" (click)="onClick()">
+                <mat-icon color="primary">visibility_off</mat-icon>
+              </button>
+              <button mat-icon-button matSuffix (click)="onClick()" *ngIf="!visibility">
+              <mat-icon color="primary">visibility_on</mat-icon>
+              </button>
+              <mat-error *ngIf="password?.hasError('required')">Password is Required</mat-error>
+            <mat-error *ngIf="password?.hasError('minlength')">Password must be
+                atleast 5 characters long</mat-error>
+            </mat-form-field>
+          </div>
+        <div>
+            <mat-form-field appearance="outline" color="primary" style="width: 350px;">
+              <mat-icon matPrefix color="primary">lock</mat-icon>
+              <mat-label>Confirm Password</mat-label>
+              <input formControlName="confirmPassword" [type]="confirmPass" matInput name="password">
+              <button mat-icon-button matSuffix  *ngIf="cvisibility" (click)="onChange()">
+                <mat-icon color="primary">visibility_off</mat-icon>
+              </button>
+              <button mat-icon-button matSuffix (click)="onChange()" *ngIf="!cvisibility">
+              <mat-icon color="primary">visibility_on</mat-icon>
+              </button>
+              <mat-error *ngIf="confirmPassword?.hasError('required')">Confirm Password is Required</mat-error>
+            <mat-error *ngIf="confirmPassword?.hasError('minlength')">Password must be
+                atleast 5 characters long</mat-error>
+                <mat-error *ngIf="confirmPassword?.hasError('matching')">Password doesn't match</mat-error>
+            </mat-form-field>
+          </div>
+        
         <div class="d-grid gap-2 col-4 mx-auto">
-            <button type="button" (click)="onSubmit()" class="btn btn-primary m-2">Sign Up</button>
+            <button type="button" (click)="onSubmit()" class="m-2" mat-raised-button color="primary">Sign Up</button>
         </div>
     </form>
+    </mat-card-content>
+    <mat-card-actions class="mx-auto">
+        <div style="font-size:17px;">Already have an account? <a
+            style="text-decoration: none; font-size:17px; color:#4b0082;" routerLink='/login'>Login Here</a></div>
+    </mat-card-actions>
+</mat-card>
 </div>
-</div>
-<div class="text-center" style="color: black; font-size: 18px; font-weight: bold;">Already have an account? <a
-    routerLink="/login" style="color: black;">Login Here</a></div>

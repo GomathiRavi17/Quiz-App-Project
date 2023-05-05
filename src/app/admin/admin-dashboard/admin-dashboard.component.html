@@ -12,7 +12,7 @@
 
 <br>
 <div class="container">
-<div class="card p-4 m-4 mx auto">
+<div class="card p-4 m-4 mx auto" mat-elevation-z8>
     <h3 class="text-center">Question Sets</h3>
 
     <div class="text-center mb-2" *ngIf="!viewCard">
@@ -20,10 +20,10 @@
     </div>
      
     <div class="search-field mb-2" *ngIf="viewCard">
-        <mat-form-field>
+        <mat-form-field appearance="outline">
             <mat-label>Search</mat-label>
             <input type="text" matInput name="search" [(ngModel)]="searchKey" 
-            (keyup)="search($event)"  placeholder="Ex. Java"/>
+            (keyup)="search($event)"/>
         </mat-form-field>
         
     </div>

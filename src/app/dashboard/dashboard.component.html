@@ -1,75 +1,23 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand">Quiz App</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <span style="flex: 1 1 auto"></span>
-    <span style="flex: 1 1 auto"></span>
-    <span style="flex: 1 1 auto"></span>
-    <span style="flex: 1 1 auto"></span>
-    <span style="flex: 1 1 auto"></span>
-    <span style="flex: 1 1 auto"></span>
-    <span style="flex: 1 1 auto"></span>
-    <span style="flex: 1 1 auto"></span>
-    <span style="flex: 1 1 auto"></span>
-    <span style="flex: 1 1 auto"></span>
-    <span style="flex: 1 1 auto"></span>
-    <span style="flex: 1 1 auto"></span>
-    <span style="flex: 1 1 auto"></span>
-    <span style="flex: 1 1 auto"></span>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<li class="nav-item">
-          <a class="nav-link active" role="button" (click)="logout()">Logout</a>
-        </li>
-      </ul>
-    </div>
-  </nav><br><br>
+<div>
+  <p>
+      <mat-toolbar color="primary">
+          <span>Quiz App</span>
+          <span class="filler"></span>
+          <span><a role="button" (click)="logout()" style="text-decoration:none; color:white;">Logout</a></span>
+      </mat-toolbar>
+  </p>
+</div>
 
 <div class="container m-5">
     <div class="row m-2">
-        <div class="col">
-            <div class="card mx-auto" style="width: 250px;">
-                <div class="card-body text-center">
-                   <p>Java Quiz</p> 
-                <a class="btn btn-primary" (click)="checkQuizAlreadyTaken('Java')">Start the quiz!</a>
-                </div>
-            </div>
+        <div class="col-4 mb-4" *ngFor="let quiz of collections">
+        <mat-card class="card mx-auto" style="width: 250px;">
+            <mat-card-content class="text-center">
+                <p class="mat-body-1">{{quiz}}</p>
+                <button mat-raised-button color="primary" (click)="checkQuizAlreadyTaken(quiz)">Take Quiz</button>
+            </mat-card-content>
+        </mat-card>
         </div>
-        <div class="col-4">
-            <div class="card mx-auto" style="width: 250px;">
-                <div class="card-body text-center">
-                   <p>Mongodb Quiz</p> 
-                <a class="btn btn-primary" (click)="checkQuizAlreadyTaken('Mongodb')">Start the quiz!</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="card mx-auto" style="width: 250px;">
-                <div class="card-body text-center">
-                   <p>Html Quiz</p> 
-                <a class="btn btn-primary" (click)="checkQuizAlreadyTaken('Html')">Start the quiz!</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-4 mt-4">
-          <div class="card mx-auto" style="width: 250px;">
-              <div class="card-body text-center">
-                 <p>Java Intermediate Quiz</p> 
-              <a class="btn btn-primary" (click)="checkQuizAlreadyTaken('JavaIntermediate')">Start the quiz!</a>
-              </div>
-          </div>
-      </div>
-
-      <div class="col-4 mt-4">
-        <div class="card mx-auto" style="width: 250px;">
-            <div class="card-body text-center">
-               <p>Java Advance Quiz</p> 
-            <a class="btn btn-primary" (click)="checkQuizAlreadyTaken('JavaAdvance')">Start the quiz!</a>
-            </div>
-        </div>
-    </div>
     </div>
  
 

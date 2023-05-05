@@ -17,11 +17,15 @@ export class LoginComponent implements OnInit {
     password: ''
   }
 
+  input: string = '';
+  visibility = false;
   errorMsg = "";
 
   private unsubscriber : Subject<void> = new Subject<void>();
   
   ngOnInit(): void {
+    this.input = 'password'
+
     history.pushState(null,'', location.href);
     fromEvent(window, 'popstate').pipe(
      takeUntil(this.unsubscriber)
@@ -35,11 +39,8 @@ export class LoginComponent implements OnInit {
   }
 
   loginForm = this.fb.group({
-    username: ['', [Validators.required]],
+    username: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
-  },
-  {
-    validators: match('password','confirmPassword')
   }
   );
 
@@ -49,6 +50,16 @@ export class LoginComponent implements OnInit {
 
   get password(){
     return this.loginForm.get('password');
+  }
+
+  onClick() {
+    if (this.input === 'password') {
+      this.input = 'text';
+      this.visibility = true;
+    } else {
+      this.input = 'password';
+      this.visibility = false;
+    }
   }
 
   login(){

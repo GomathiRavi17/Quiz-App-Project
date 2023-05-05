@@ -26,6 +26,9 @@ import { FullscreenDialogComponent } from './fullscreen-dialog/fullscreen-dialog
 import { ModalComponent } from './modal/modal.component';
 import { EnablefsComponent } from './enablefs/enablefs.component';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatCardModule} from '@angular/material/card'
+import { InstructionsComponent } from './instructions/instructions.component'
 
 
 @NgModule({
@@ -36,7 +39,8 @@ import {MatChipsModule} from '@angular/material/chips';
     ResultComponent,
     FullscreenDialogComponent,
     ModalComponent,
-    EnablefsComponent
+    EnablefsComponent,
+    InstructionsComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +61,9 @@ import {MatChipsModule} from '@angular/material/chips';
     MatPaginatorModule,
     MatSortModule,
     FormsModule,
-    MatChipsModule
+    MatChipsModule,
+    MatRadioModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

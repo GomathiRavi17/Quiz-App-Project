@@ -1,5 +1,5 @@
 import { DOCUMENT, NgFor } from '@angular/common';
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../authorization/auth.service';
@@ -58,6 +58,8 @@ export class QuizComponent implements OnInit {
   startTime: any = null;
   result: any = null;
 
+  @ViewChild('option')
+  radioOption: any;
 
   totalQuestions = 0;
   beginner = 0;
@@ -264,6 +266,17 @@ export class QuizComponent implements OnInit {
         }
       );
     }
+    else if (this.quizName === 'JavaBasic') {
+      this.quizService.getAllJavaBasicQuestions().subscribe(
+        (question) => {
+          this.allQuestions = question
+          this.randomQuestions();
+          this.assignQuestions();
+
+          console.log(this.displayQuestions)
+        }
+      );
+    }
     else if (this.quizName === 'JavaIntermediate') {
       this.quizService.getAllJavaInterQuestions().subscribe(
         (question) => {
@@ -329,7 +342,9 @@ export class QuizComponent implements OnInit {
     this.option4 = this.displayQuestions[this.currentIndex].option4;
     this.id = this.displayQuestions[this.currentIndex].id;
     this.optionType = this.displayQuestions[this.currentIndex].qType;
-    this.attended++;
+    if(this.radioOption.dirty){
+      this.attended++;
+    }
     this.qNo++;
   }
 

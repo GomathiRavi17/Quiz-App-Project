@@ -3,47 +3,15 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand">Quiz App</a>
-        <span class="filler" style="flex: 1 1 auto"></span>
-        <span class="filler" style="flex: 1 1 auto"></span>
-        <span class="filler" style="flex: 1 1 auto"></span>
-        <span class="filler" style="flex: 1 1 auto"></span>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav">
-                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp; &nbsp;<li class="nav-item" style="font-size: 18px">
-                    <a class="nav-link active" routerLink="/user-dashboard">Dashboard</a>
-                </li>
-                &nbsp; &nbsp;<li class="nav-item">
-                    <a class="nav-link active" role="button" (click)="logout()" style="font-size: 18px">Logout</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <div>
+        <p>
+            <mat-toolbar color="primary">
+                <span>Quiz App</span>
+                <span class="filler"></span>
+                <span><a role="button" (click)="logout()" style="text-decoration:none; color:white;">Logout</a></span>
+            </mat-toolbar>
+        </p>
+    </div>
     <div class="container mb-2">
         <div class="card mx-auto p-4 m-2" style="width:875px;">
             <h3>{{quiz}} Assessment</h3>
@@ -59,7 +27,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4 p-2">
-                        <img align="left" src="https://img.icons8.com/color/96/null/story-time.png"/><br>
+                        <img align="left" src="https://img.icons8.com/color/96/null/story-time.png" /><br>
                         &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<strong>{{result.timeTaken}} <br></strong>
                         &nbsp;&nbsp;time taken for completion
                     </div>
