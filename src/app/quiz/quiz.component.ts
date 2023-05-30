@@ -299,6 +299,17 @@ export class QuizComponent implements OnInit {
         }
       );
     }
+    else if (this.quizName === 'Angular') {
+      this.quizService.getAllAngularQuestions().subscribe(
+        (question) => {
+          this.allQuestions = question
+          this.randomQuestions();
+          this.assignQuestions();
+
+          console.log(this.displayQuestions)
+        }
+      );
+    }
   }
 
   assignQuestions() {

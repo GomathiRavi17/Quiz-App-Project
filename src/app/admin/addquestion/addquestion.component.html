@@ -12,11 +12,17 @@
     </p>
 </div>
 
+
 <div class="container m-5">
 
+    
 
-
-    <div class="card mx-auto p-5" style="width: 500px;">
+    <div class="card mx-auto p-3" style="width: 500px;">
+        <div class="m-3 text-center">
+            <button mat-raised-button color="primary" (click)="downloadTemplate()">
+                <mat-icon>download</mat-icon>
+                Download Question Template</button>
+        </div>
         <h4>Upload Excel File</h4>
         <label for="dropdown">Select language</label>
         <select id="dropdown" #teams (change)="onSelected(teams.value)">
@@ -27,6 +33,7 @@
             <option value="JavaBasic">JavaBasic</option>
             <option value="JavaIntermediate">JavaIntermediate</option>
             <option value="JavaAdvance">JavaAdvance</option>
+            <option value="Angular">Angular</option>
         </select>
         <input type="file" (change)="fileUpload($event)" class="form-control" placeholder="Upload File"
             accept=".xls,.xlsx" name="fileName" />

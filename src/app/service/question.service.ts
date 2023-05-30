@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -110,5 +110,10 @@ updateJavaAdvance(java:[]){
 deleteJavaAdvance(id:number){
   return this.http.delete("http://localhost:8011/question/deleteAdvance/"+id,{responseType:"text"})
 }
+
+getAllAngularQuestions(): Observable<any>{
+  return this.http.get<any>("http://localhost:8011/question/allAngular");
+}
+
 
 }

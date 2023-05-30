@@ -110,6 +110,19 @@ export class ViewQuestionComponent implements OnInit{
         console.log(this.questionArray);
       })
     }
+    else if(this.selectedTeam == 'Angular'){
+      this.questionService.getAllAngularQuestions().subscribe((data: any)=>{
+        console.log(data);
+        this.questionArray = data;
+        if(this.questionArray.length===0){
+          alert("No datas are found to display!")
+        }
+        this.dataSource = new MatTableDataSource(this.questionArray);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        console.log(this.questionArray);
+      })
+    }
   }
 
   openDialog(row:any){

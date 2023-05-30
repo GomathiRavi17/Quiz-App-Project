@@ -32,6 +32,10 @@ export class QuizService {
     return this.httpClient.get<any>("http://localhost:8011/question/allJavaAdvance");
   }
 
+  getAllAngularQuestions(): Observable<any>{
+    return this.httpClient.get<any>("http://localhost:8011/question/allAngular");
+  }
+
   addQuestion(questions:any):Observable<any[]>{
     return this.httpClient.post<any[]>("http://localhost:8011/question/addQuestion", questions);
   }
